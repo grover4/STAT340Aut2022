@@ -43,7 +43,13 @@ he estimates that his probability of being accepted at E is 0.7, and at
 N, 0.4. He also suspects there is a 75% chance that at least one of his applications
 will be rejected. What is the probability that at least one of the schools will accept him?
 
-4. (Subset inequality) Prove that if $E \subset F$, then $P(E) \leq P(F)$.   (Hint: Write $F$ as the union of two mutually exclusive sets $E$ and $E^c \cap F$. )
+    Hint: Let $E$ denote the event that he is accepted at the eastern branch and $N$ the event that he is accepted at the Northern branch. 
+
+    You are given $$P(E) = 0.7, P(N) = 0.4, P(E^c \cup N^c) = 0.75.$$ 
+
+    You need to find $P(E \cup N).$
+
+4. (Subset inequality) Prove that if $E \subset F$, then $P(E) \leq P(F)$.   (Hint: Write $F$ as the union of two mutually exclusive sets $E$ and $F - E$. )
 
 
 
