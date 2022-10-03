@@ -26,12 +26,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Exercises 
 
-1. The	crew	of	Apollo	17	consisted	of	two	pilots	and	one	geologist.	Suppose	that	 NASA	had	actually	trained	nine	pilots	and	four	geologists.	How	many	possible	Apollo 17 crews	could	have	been	formed	
+1. The	crew	of	Apollo	17	consisted	of	two	pilots	and	one	geologist.	Suppose	that	 NASA	had	actually	trained	three	pilots	and	two	geologists.	How	many	possible	Apollo 17 crews	could	have	been	formed	
 
     a. 	if	the	two	pilot	positions	have	identical	duties?	
     
     b. if	there	is	a	pilot	and	a	co-pilot?	
 
+Write the sample space in each case. You may denote the three pilots as $P_1, P_2, P_3$ and the two geologists as $G_1, G_2$. So $(P_1, P_2, G_1)$ represents the outcome that pilots 1 and 2 and geologist 1 were selected.
 2.  For two events $A$ and $B$ with $P(A)=0.5$ and $P(B)=0.8$, what are the largest and smallest possible values for $P(A \cap B)$? 
 
     *Hint* you will need to use the Bonferroni inequality and also the subset inequality you learned in section.
