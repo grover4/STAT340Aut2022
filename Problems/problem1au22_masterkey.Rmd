@@ -1,0 +1,80 @@
+---
+title: "Problem Section 1 Key"
+subtitle:  "The Probability Function"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1. For each of the following experiments, describe the sample space $S$.
+
+    a. Count the number of insect-damaged leaves on a plant.
+    
+    $S = [0,1,2, \dots, \infty)$ or $S = [0,1,2, \dots, N)$ where N is the number of leaves on the tree. 
+	 
+    b. Observe the proportion of defectives in a shipment of $N$ electronic components. 
+	
+	  $S = [0,\frac{1}{N},\frac{2}{N},\dots,1]$
+
+2. Suppose a person is randomly selected from a large city. Let $A$ be the event that the randomly selected person is male, $B$ the event that the person is under 30 and $C$ that the person speaks French. Write the following verbal description of events using set operations on $A$, $B$, $C$. Venn diagrams might help you to figure out answers to this.  
+
+    a. A male at least 30 years old
+    
+    $A \cap B$
+	
+    b. A female under 30 who speaks French
+    
+    $A^c \cap B \cap C$
+	
+    c. A male who is either under 30 or speaks French
+
+    $(A \cap B) \cup (A \cap C)$ or $A \cap (B \cup C)$
+
+3.  Winthrop,a pre-med student, has been summarily rejected by all 126 US medical schools. Desperate,
+he sends his transcripts and MCATs to the two least selective foreign schools he can think
+of, the two branch campuses (N and E ) of Swampwater Tech. Based on the success his friends have had there,
+he estimates that his probability of being accepted at E is 0.7, and at
+N, 0.4. He also suspects there is a 75% chance that at least one of his applications
+will be rejected. What is the probability that at least one of the schools will accept him?
+
+Let E = Winthrop being accepted into Eastern branch and N = Winthrop being accepted into Eastern branch.
+
+We have that $P(E) = 0.7$, $P(N) = 0.4$, and $P(E^c \cup N^c) = .75$.
+
+We would like to find $P(E\cup N) = P(E) + P(N) - P(E \cap N)$.
+
+By DeMorgan's Law, $(E^c \cup N^c) = (E \cap N)^c$, thus $P(E \cap N) = 1 - P((E \cap N)^c) = 1-.75 = .25$
+
+Thus, $P(E\cup N) = P(E) + P(N) - P(E \cap N) = .7 + .4 - .25 = .85$
+
+
+4. (Subset inequality) Prove that if $E \subset F$, then $P(E) \leq P(F)$.   (Hint: Write $F$ as the union of two mutually exclusive sets $E$ and $E^c \cap F$. )
+
+
+We know that $F = E \cup (F - E)$.
+
+Thus we have:
+\begin{align*}
+P(F) &= \\
+&= P(E \cup (F - E) ) \\
+&= P(E) + P((F - E)) \\
+\geq P(E) 
+\end{align*}
+
+Since we know that $P((F - E)) \geq 0$
+
+Thus $P(E) \leq P(F)$
