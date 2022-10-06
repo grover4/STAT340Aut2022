@@ -1,0 +1,93 @@
+---
+title: "Problem Session 2"
+subtitle:  "Equally Likely Rule & Conditional Probability"
+graphics: yes
+output: 
+        pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(openintro)    #for drawing probability tree
+library(tidyverse)    #for ggplot
+```
+
+
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1.  (*Lady Tasting Tea*) In a famous experiment conducted by Sir. R. A. Fisher, 8 cups of tea - 4 prepared by pouring the milk first and then the tea and 4 prepared by pouring the tea first and then the milk -- were  presented in random order to Muriel Bristol who claimed she could tell the difference. 
+
+The methods employed in the experiment were fully disclosed to the subject and she had to select the 4 cups prepared with the "milk poured first". 
+
+
+```{r tea-cups, echo=F, fig.align = "center", out.width="85%"}
+knitr::include_graphics("problem2au22fig1.JPG")
+```
+
+  Assume the lady possesses no extra sensory powers and is just selecting a subset of 4 cups randomly from eight.
+  
+  a. The sample space $S$ for this experiment consists of all groupings of 4 cups selected from eight. How many such groups are there? Write your answer symbolically first and also calculate it in the code chunk below.
+  
+```{r sample-space}
+#calculate number of elements in S
+## in the code chunk below
+
+```
+  
+  b. Let $E$ denote the event that there are 3 cups with "milk poured first" and 1 cup with "tea poured first". How many elements are in $E$? Write your answer symbolically first and also calculate it in a code chunk below.
+
+ c. Assuming that every outcome in $S$ is equally likely, calculate $P(E)$. You may do this in a code chunk.
+\
+\
+
+2. One useful application of conditional probabilities is in calculating inverse probabilities. For example,
+consider the following tree diagram of probabilities relating a screening test for a disease with the actual presence of disease. 
+
+
+```{r treediagram, echo = FALSE}
+
+treeDiag(main = c("Disease status", "Test result"),
+         p1 = c(0.001, 0.999),
+         p2 = list(c(0.98, "?"), c("?", 0.99)),
+         out1 = c("Present", "Absent"),
+         out2 = c("Positive", "Negative"),
+         showSol = FALSE,
+         showWork = TRUE,
+         solwd = 0.5,
+         digits = 6)
+
+```
+
+Let $D$ denote that a randomly selected individual has the disease, and $T$ the event that the screening test is positive. 
+
+The first (primary) branch of the tree gives \emph{unconditional} probabilities of disease being present or absent:
+$$P(D) = 0.001, P(D^{c}) = 0.999$$ 
+while the secondary branches state conditional probabilities of the test coming out positive given the disease status:
+$$P(T|D) = 0.98, P(T|D^{c}) = 0.99.$$
+
+   a. Fill in the values in the tree diagram for the conditional probabilities $P(T^{c}|D)$ and $P(T^{c}|D^{c})$ indicated by a "?"  (Hint: conditional probability follows Law of Complements.)
+
+   b. Set `showSol = TRUE` in the `treeDiag` function and look at the output. What events do the probabilities at the end of each branch correspond to? Write them symbolically below.
+
+   c. Suppose the test is positive. What is the probability that the person actually has disease? In other words, find: 
+$$P(D|T) = \frac{P(D \cap T)}{P(T)}.$$
+
+  Hint for calculating the denominator: the event, $T$, that the test is positive is the union of two mutually exclusive events: $T = ( T \cap D ) \cup (T \cap D^{c})$
+
+   d. The probability you calculated in part c. is an inverse conditional probability and is referred to as the \emph{sensitivity} of the screening test. Comment on why it makes sense for this number to be so small in this example. 
+
+   e. Now calculate the inverse conditional probability $P(D^{c}|T^{c})$. (This is called the *specificity* of the screening test. )
+
+
+3. Suppose that string of tree lights you just bought has twenty-four bulbs
+wired in series. If each bulb has a 99.9% chance of “working” when the current
+is applied, what is the probability that the string itself will not work? You may assume that bulb failures are independent.
