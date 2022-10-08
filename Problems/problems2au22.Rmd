@@ -71,8 +71,12 @@ Let $D$ denote that a randomly selected individual has the disease, and $T$ the 
 
 The first (primary) branch of the tree gives \emph{unconditional} probabilities of disease being present or absent:
 $$P(D) = 0.001, P(D^{c}) = 0.999$$ 
+
 while the secondary branches state conditional probabilities of the test coming out positive given the disease status:
+
 $$P(T|D) = 0.98, P(T|D^{c}) = 0.99.$$
+
+The conditional probabilities are called the \emph{sensitivity} and \emph{specificity} of the test respectively. \
 
    a. Fill in the values in the tree diagram for the conditional probabilities $P(T^{c}|D)$ and $P(T^{c}|D^{c})$ indicated by a "?"  (Hint: conditional probability follows Law of Complements.)
 
@@ -83,9 +87,9 @@ $$P(D|T) = \frac{P(D \cap T)}{P(T)}.$$
 
   Hint for calculating the denominator: the event, $T$, that the test is positive is the union of two mutually exclusive events: $T = ( T \cap D ) \cup (T \cap D^{c})$
 
-   d. The probability you calculated in part c. is an inverse conditional probability and is referred to as the \emph{sensitivity} of the screening test. Comment on why it makes sense for this number to be so small in this example. 
+   d. The probability you calculated in part c. is an inverse conditional probability and is referred to as the \emph{positive predictive value} of the screening test. Comment on why it makes sense for this number to be so small in this example. 
 
-   e. Now calculate the inverse conditional probability $P(D^{c}|T^{c})$. (This is called the *specificity* of the screening test. )
+   e. Now calculate the inverse conditional probability $P(D^{c}|T^{c})$. 
 
 
 3. Suppose that string of tree lights you just bought has twenty-four bulbs
