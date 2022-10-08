@@ -76,7 +76,6 @@ while the secondary branches state conditional probabilities of the test coming 
 
 $$P(T|D) = 0.98, P(T|D^{c}) = 0.99.$$
 
-The conditional probabilities are called the \emph{sensitivity} and \emph{specificity} of the test respectively. \
 
    a. Fill in the values in the tree diagram for the conditional probabilities $P(T^{c}|D)$ and $P(T^{c}|D^{c})$ indicated by a "?"  (Hint: conditional probability follows Law of Complements.)
 
