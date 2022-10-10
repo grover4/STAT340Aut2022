@@ -1,0 +1,183 @@
+---
+title: "Problem Session 2"
+subtitle:  "Equally Likely Rule & Conditional Probability"
+graphics: yes
+output: 
+        pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(openintro)    #for drawing probability tree
+library(tidyverse)    #for ggplot
+```
+
+
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1.  (*Lady Tasting Tea*) In a famous experiment conducted by Sir. R. A. Fisher, 8 cups of tea - 4 prepared by pouring the milk first and then the tea and 4 prepared by pouring the tea first and then the milk -- were  presented in random order to Muriel Bristol who claimed she could tell the difference. 
+
+The methods employed in the experiment were fully disclosed to the subject and she had to select the 4 cups prepared with the "milk poured first". 
+
+
+```{r tea-cups, echo=F, fig.align = "center", out.width="85%"}
+knitr::include_graphics("problem2au22fig1.JPG")
+```
+
+  Assume the lady possesses no extra sensory powers and is just selecting a subset of 4 cups randomly from eight.
+  
+  a. The sample space $S$ for this experiment consists of all groupings of 4 cups selected from eight. How many such groups are there? Write your answer symbolically first and also calculate it in the code chunk below.
+  
+  We have that the sample space S, has size = $\binom{8}{4}$
+  
+```{r sample-space}
+#calculate number of elements in S
+## in the code chunk below
+S_size <- choose(8,4)
+```
+  
+  We see that using R, we find that the size of S is equal to `r S_size` . 
+  
+  
+  b. Let $E$ denote the event that there are 3 cups with "milk poured first" and 1 cup with "tea poured first". How many elements are in $E$? Write your answer symbolically first and also calculate it in a code chunk below.
+  
+  $|E| = \binom{4}{3} \binom{4}{1}$
+  
+```{r, sample_size_E}
+E_size <- choose(4,3)*choose(4,1)
+```
+  
+  We see that this exact size is `r E_size`
+
+ c. Assuming that every outcome in $S$ is equally likely, calculate $P(E)$. You may do this in a code chunk.
+
+```{r}
+prob_E <- E_size/S_size
+```
+
+We see that $P(E)=$ `r prob_E`
+
+2. One useful application of conditional probabilities is in calculating inverse probabilities. For example,
+consider the following tree diagram of probabilities relating a screening test for a disease with the actual presence of disease. 
+
+
+```{r treediagram, echo = FALSE}
+
+treeDiag(main = c("Disease status", "Test result"),
+         p1 = c(0.001, 0.999),
+         p2 = list(c(0.98, "?"), c("?", 0.99)),
+         out1 = c("Present", "Absent"),
+         out2 = c("Positive", "Negative"),
+         showSol = FALSE,
+         showWork = TRUE,
+         solwd = 0.5,
+         digits = 6)
+
+```
+
+Let $D$ denote that a randomly selected individual has the disease, and $T$ the event that the screening test is positive. 
+
+The first (primary) branch of the tree gives \emph{unconditional} probabilities of disease being present or absent:
+$$P(D) = 0.001, P(D^{c}) = 0.999$$ 
+
+while the secondary branches state conditional probabilities of the test coming out same as the given disease status:
+
+$$P(T|D) = 0.98, P(T^{c}|D^{c}) = 0.99.$$
+
+
+   a. Fill in the values in the tree diagram for the conditional probabilities $P(T^{c}|D)$ and $P(T|D^{c})$ indicated by a "?"  (Hint: conditional probability follows Law of Complements.)
+   
+    Here we may simply utilize the Law of complements for each missing conditional probability.
+   
+```{r treediagram_filled_in, echo = FALSE}
+
+treeDiag(main = c("Disease status", "Test result"),
+         p1 = c(0.001, 0.999),
+         p2 = list(c(0.98, 1-.98), c(1-0.99, 0.99)),
+         out1 = c("Present", "Absent"),
+         out2 = c("Positive", "Negative"),
+         showSol = FALSE,
+         showWork = TRUE,
+         solwd = 0.5,
+         digits = 6)
+
+```
+
+
+   b. Set `showSol = TRUE` in the `treeDiag` function and look at the output. What events do the probabilities at the end of each branch correspond to? Write them symbolically below.
+   
+```{r treediagram_filled_in_2, echo = FALSE}
+
+treeDiag(main = c("Disease status", "Test result"),
+         p1 = c(0.001, 0.999),
+         p2 = list(c(0.98, 1-.98), c(1-.99, 0.99)),
+         out1 = c("Present", "Absent"),
+         out2 = c("Positive", "Negative"),
+         showSol = TRUE,
+         showWork = TRUE,
+         solwd = 0.5,
+         digits = 6)
+
+```
+ Going from top to bottom we have:
+
+\begin{align*}
+P(D \cap T) &= .00098 \\
+P(D \cap T^c) &= .00002 \\
+P(D^c \cap T) &= .00999 \\
+P(D^c \cap T^c) &= .98901
+\end{align*}
+
+
+   c. Suppose the test is positive. What is the probability that the person actually has disease? In other words, find: 
+$$P(D|T) = \frac{P(D \cap T)}{P(T)}.$$
+  Hint for calculating the denominator: the event, $T$, that the test is positive is the union of two mutually exclusive events: $T = ( T \cap D ) \cup (T \cap D^{c})$
+  
+```{r}
+P_D_and_T <- .00098
+P_Dc_and_T <- .00999
+P_T <- P_D_and_T + P_Dc_and_T
+P_D_given_T <- P_D_and_T/P_T
+P_D_given_T
+```
+  Using the above math we have that $P(D|T)=$ `r P_D_given_T`
+
+
+   d. The probability you calculated in part c. is an inverse conditional probability and is referred to as the \emph{positive predictive value} of the screening test. Comment on why it makes sense for this number to be so small in this example. 
+   
+   This probability is quite small because we see that the disease itself is incredibly uncommon in the population. This small proportion of people truly with the disease makes it so that even with a positive test result, it is unlikely that your truly have the disease. 
+
+   e. Now calculate the inverse conditional probability $P(D^{c}|T^{c})$. 
+ 
+```{r}
+P_Dc_cap_Tc <- 0.98901
+P_D_cap_Tc <-  0.00002
+P_Tc <- P_Dc_cap_Tc + P_D_cap_Tc
+P_Dc_given_TC <- P_Dc_cap_Tc/P_Tc
+```
+
+Using the above math we have that $P(D^c|T^c)=$ `r P_Dc_given_TC`
+
+3. Suppose that string of tree lights you just bought has twenty-four bulbs wired in series. If each bulb has a 99.9% chance of “working” when the current is applied, what is the probability that the string itself will not work? You may assume that bulb failures are independent.
+
+We must find the probability of at least one bulb failing, since this will cause the series to fail. We can find this using complements.
+
+Let $A_i$ be the event that bulb i works.
+
+Let $B$ be the event that the string of lights works (no bulb failures), i.e. $B = A_1 \cap A_2 \cap \dots \cap A_{24}$
+
+By independence of the $A_i's$ we have that $P(B) = P(A_1 \cap A_2 \cap \dots \cap A_{24}) = \prod_{i=1}^{24}P(A_i) = .999^{24}$
+
+This probability the string does work is thus `r .999^(24)`, so the probability the string will not work is simply one minus this probability: `r 1 - .999^(24)`
+
+
+
