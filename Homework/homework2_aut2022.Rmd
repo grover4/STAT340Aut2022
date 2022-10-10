@@ -1,0 +1,85 @@
+---
+title: "Homework 2"
+subtitle: "Autumn 2022"
+author: "YOUR NAME"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+* * * 
+
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Oct 19 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+### Exercises 
+
+1. Suppose 12 coins are tossed and the outcome (head or tail) is recorded for each.  
+   
+a. The sample space $S$ corresponding to this "experiment" consists of all possible sequences of heads and tails that result from tossing 12 coins. How many elements are in $S$? Calculate this number in a code chunk and also explain your answer very briefly.
+
+    *Hint: Refer to Braille alphabet example 3.2. This problem is similar but with a 12 dot matrix.*
+   
+b. Let $E$ denote the event that 7 of the 12 coins land on heads. How many elements are in $E$? Explain your answer very briefly.
+    
+    *Hint: Referring to the Braille alphabet example again, think about counting the number of letters that can be formed with 3 raised dots. What decision do you need to make? How many ways can you make it?*
+   
+c. Calculate $P(E)$ assuming all the elements in $S$ are equally likely. Report your final answer in a sentence using inline code.
+   
+   
+2. To estimate the number $N$ of goldfish in a pond, $r=25$ fish were caught, tagged and released. Later, a second sample of $n=20$ fish were caught and 5 fish in this sample were noted to be tagged.  
+ 
+a.  How many possible samples of size $n=20$ can be formed from the $N$ fish in the pond?  (Leave your answer in terms of a binomial coefficient - you cannot calculate it because you don't know $N$)
+    
+b. The event $E$ contains all the samples which have 5 tagged and 15 untagged fish. How many elements are in the event $E$? (Leave your answer in terms of $N$)
+   
+c. Assuming each possible sample is equally likely, give an expression for $P(E)$. (Leave your answer in terms of $N$)
+
+d.  In this part, we will examine visually how $P(E)$ varies as a function of $N$.  Fill in the blanks in the R code provided and run it in R to create the plot. You should remove the `eval = FALSE` chunk option before knitting.   (Note: this part does not require you to know **tidyverse** or **ggplot** functions, and should be doable by all.)
+
+
+```{r fish, eval=FALSE}
+
+fishes <- tibble( #enhanced data frame
+        N = 40:200,    #possible values for N: 40,41, ...,200
+        prob = ___ ) ) #write expression for P(E) in terms of N
+
+ggplot(data = fishes, 
+       mapping = aes(x = ___,    
+                     y = ___) ) +
+           geom_line() +
+             labs( title = " ___" ,
+                  x = "___", 
+                  y = "___")
+```
+
+
+3. Among all students seeking treatment at Hall Health, 0.5% are eventually diagnosed as having mononucleosis (event $A$). Of those who do have mono, 90% complain of a sore throat (event $B$). But 30% of those not having mono also have sore throats. 
+
+a. Make a tree diagram of the probabilities relating presenting with a sore throat and a diagnosis of mononucleosis. (Don't forget to include the **openintro** package in the setup chunk)
+    
+b. If a student comes to Hall Health and says that she has a sore throat, what is the probability that she has mono? Be sure to show your steps carefully. 
+
+4. Prove that if $A$ and $B$ are independent events, then the following pairs are also independent. 
+
+a. $A$ and $B^c$
+
+b. $A^c$ and $B$
+
+c. $A^c$ and $B^c$.
+  
+    *Hint: In each part, you are trying to show the two events in question satisfy the definition of independence. To prove this for a, write the set $A$ as the union of two disjoint events $A \cap B$ and $A \cap B^c$, then use axiom 3, followed by knowledge of independence of $A$ and $B$ and see if that gets you anything.*   
+
