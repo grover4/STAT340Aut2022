@@ -77,26 +77,26 @@ b.  if there is a pilot and a co-pilot?
     have elements in common since the probability of their intersection
     is positive.
 
-4.  Three events $A$, $B$ and $C$ are defined in a sample space. Show
-    that $$P(A \cup B \cup C) \leq P(A) + P(B) + P(C).$$
+4. Three events $A$, $B$ and $C$ are defined in a sample space. Show that 
+$$P(A \cup B \cup C) \leq P(A) + P(B) + P(C).$$
 
     *Hint* Define $E = B \cup C$ and apply the union bound to
     $P(A \cup E)$ first. Then apply the union bound again to $P(E)$.
 
     Let $E = (B \cup C)$. Then
 
-\begin{align*}
-  P(A \cup B \cup C) &= P(A \cup E), \\
+    \begin{align*}
+     P(A \cup B \cup C) &= P(A \cup E), \\
                       & \leq P(A) + P(E) 
-\end{align*}
+    \end{align*}
 
-  where the second equation follows from the union bound for two events. Let's now apply the union bound to $P(E)$:
+    where the second equation follows from the union bound for two events. Let's now apply the union bound to $P(E)$:
 
-\begin{align*}
-  P(E) &= P(B \cup C), \\
-      & \leq P(B) + P(C).
-  \end{align*} 
-  
-  Hence, putting both sets of equations together, we have:
+    \begin{align*}
+     P(E) &= P(B \cup C), \\
+       & \leq P(B) + P(C).
+    \end{align*} 
+
+    Hence, putting both sets of equations together, we have:
 
 $$P(A \cup B \cup C) \leq P(A) + P(B) + P(C).$$
