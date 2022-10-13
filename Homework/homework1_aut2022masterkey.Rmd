@@ -1,0 +1,102 @@
+---
+title: "Homework 1 Key"
+subtitle: "Autumn 2022"
+author: "YOUR NAME"
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+------------------------------------------------------------------------
+
+### Instructions
+
+-   This homework is due in Gradescope on Wednesday Oct 12 by midnight
+    PST.
+
+-   Please answer the following questions in the order in which they are
+    posed.
+
+-   Don't forget to knit the document frequently to make sure there are
+    no compilation errors.
+
+-   When you are done, download the PDF file as instructed in section
+    and submit it in Gradescope.
+
+------------------------------------------------------------------------
+
+### Exercises
+
+1.  The crew of Apollo 17 consisted of two pilots and one geologist.
+    Suppose that NASA had actually trained three pilots and two
+    geologists. How many possible Apollo 17 crews could have been formed
+
+a.  if the two pilot positions have identical duties?
+
+    Let's denote the three pilots by $P_1,P_2,P_3$ and the two
+    geologists by $G_1, G_2$. Then $(P_1, P_2, G_1)$ represents the outcome that pilots 1 and 2 were picked as was geologist 1. The sample space consisting of all the \textbf{six outcomes} for this "experiment" is shown below:
+    $$S = \left\{ (P_1, P_2, G_1), (P_1,P_3,G_1), (P_2, P_3, G_1), (P_1, P_2, G_2), (P_1,P_3,G_2), (P_2, P_3, G_2), \right\}.$$
+
+b.  if there is a pilot and a co-pilot?
+
+    Since the duties of the pilots are interchangeable in part a), we did not need to differentiate between the roles assigned to each pilot. We need to do this now. Suppose the first pilot in an outcome is the designated pilot, and the second is the co-pilot. Then the sample space consists of six outcomes from part a, but also the following additional six outcomes for a total of \textbf{twelve outcomes}:
+    $$(P_2, P_1, G_1), (P_3,P_1,G_1), (P_3, P_2, G_1), (P_2, P_1, G_2), (P_3,P_1,G_2), (P_3, P_2, G_2).$$
+
+
+2.  For two events $A$ and $B$ with $P(A)=0.5$ and $P(B)=0.8$, what are
+    the largest and smallest possible values for $P(A \cap B)$?
+
+    *Hint* you will need to use the Bonferroni inequality and also the
+    subset inequality you learned in section.
+
+    By \textbf{Bonferroni's inequality} which says that
+    $$P(A \cap B) \geq P(A) + P(B) - 1$$ we can say that the
+    \textbf{smallest} value for the intersection probability is `r 0.5 + 0.8 -1`.
+
+    By the \textbf{subset inequality} which states that if
+    $E \subseteq F$ then $P(E) \leq P(F)$, we can conclude that the \textbf{largest} value for the intersection probability is $P(A) = 0.5$ since
+    $$(A \cap B) \subseteq A \rightarrow P(A \cap B) \leq P(A) = 0.5$$
+    and also
+    $$(A \cap B) \subseteq B \rightarrow P(A \cap B) \leq P(B) = 0.8.$$
+
+3.  If $P(A) = \frac{1}{3}$ and $P(B^c)=\frac{1}{4}$, can $A$ and $B$ be
+    disjoint? Support your answer.
+
+    To answer this question, we want to examine where $P(A \cap B)$ can equal 0. The answer is no, because by Bonferroni's inequality we
+    know that \begin{align*}
+    P(A \cap B) &\geq P(A) + P(B) - 1,\\
+                &=  P(A) - (1 - P(B))\\
+                &=  P(A) - P(B^c) \ \ \ \text{law of complements} \\
+                &= \frac{1}{3} - \frac{1}{4} = \frac{1}{12}.
+    \end{align*} Since $\frac{1}{12} > 0$, we can say that A and B must
+    have elements in common since the probability of their intersection
+    is positive.
+
+4.  Three events $A$, $B$ and $C$ are defined in a sample space. Show
+    that $$P(A \cup B \cup C) \leq P(A) + P(B) + P(C).$$
+
+    *Hint* Define $E = B \cup C$ and apply the union bound to
+    $P(A \cup E)$ first. Then apply the union bound again to $P(E)$.
+
+    Let $E = (B \cup C)$. Then
+
+\begin{align*}
+  P(A \cup B \cup C) &= P(A \cup E), \\
+                      & \leq P(A) + P(E) 
+\end{align*}
+
+  where the second equation follows from the union bound for two events. Let's now apply the union bound to $P(E)$:
+
+\begin{align*}
+  P(E) &= P(B \cup C), \\
+      & \leq P(B) + P(C).
+  \end{align*} 
+  
+  Hence, putting both sets of equations together, we have:
+
+$$P(A \cup B \cup C) \leq P(A) + P(B) + P(C).$$
