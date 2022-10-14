@@ -2,7 +2,7 @@
 title: "Problem Session 3"
 subtitle:  "Discrete Distributions & Binomial"
 graphics: yes
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
