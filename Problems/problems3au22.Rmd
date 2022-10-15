@@ -1,6 +1,6 @@
 ---
 title: "Problem Session 3"
-subtitle:  "Discrete Distributions & Binomial"
+subtitle:  "Discrete Distributions: PMF and CDF"
 graphics: yes
 output: pdf_document
 ---
