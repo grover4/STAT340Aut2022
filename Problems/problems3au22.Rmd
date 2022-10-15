@@ -25,7 +25,24 @@ $$S = \{ HHH, HHT, HTH, HTT, TTT,TTH, THT, THH \}.$$
 
 a. Write the PMF of $X$ defined as the difference between number of heads and number of tails.
 
+\begin{tabular}{|c|c|c|c|c|} \hline
+$x$ & -3 & -1 & 1 & 3 \\ \hline
+$f(x)$ & 1/8 & 3/8 & 3/8 & 1/8 \\ \hline
+\end{tabular}
+
 b. Give the CDF of $X$.
+
+\begin{align*} 
+F(x) &= P(X\leq x) \\ 
+&= \left \{ 
+\begin{array}{cc}
+                0 &\text{ if }  x < -3 \\ \\
+      \frac{1}{8} &\text{ if } -3 \leq x < -1 \\ \\
+      \frac{4}{8} &\text{ if } -1 \leq x < 1 \\ \\
+      \frac{7}{8} &\text{ if } 1 \leq x < 3 \\ \\
+                1 &\text{ if } x \geq 3
+\end{array} \right.
+\end{align*}
 
 c. Draw the probability histogram of $X$ in R.
 
@@ -33,13 +50,7 @@ c. Draw the probability histogram of $X$ in R.
 $$f(x) = P(X = x) = c, \ \ \ x = -n, -n+1, -n+2, \dots, 1,2,\dots,n.$$
 
 a. What is $c$?
+
 b. What is the PMF of  $$Y = -X? $$
 
 	  
-3. Acceptance sampling is a procedure that tests some of the items in a lot or shipment and decides to accept or reject the entire lot based on the results of testing the sample. In a simple case, each item tested is determined to be either defective or acceptable.
-
-    Suppose a purchaser orders 100 items, tests 4 of them and rejects the lot if one or more of those four are found to be defective. 
-
-a. If an item is defective with probability 0.1 (independently of the other items), what is the probability that the purchaser will reject the shipment? (Define the random variable of interest, state its distribution, define the event in random variable notation and then calculate the probability.)
-
-b. Make a graph showing how the probability of rejection varies with the probability of a defective item.
