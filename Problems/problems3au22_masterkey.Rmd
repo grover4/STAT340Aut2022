@@ -1,0 +1,79 @@
+---
+title: "Problem Session 3"
+subtitle:  "Discrete Distributions: PMF and CDF"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+	 
+1. Suppose you toss a fair coin 3 times. The sample space for this experiment is shown below:
+$$S = \{ HHH, HHT, HTH, HTT, TTT,TTH, THT, THH \}.$$
+
+a. Write the PMF of $X$ defined as the difference between number of heads and number of tails.
+
+\begin{tabular}{|c|c|c|c|c|} \hline
+$x$ & -3 & -1 & 1 & 3 \\ \hline
+$f(x)$ & 1/8 & 3/8 & 3/8 & 1/8 \\ \hline
+\end{tabular}
+
+b. Give the CDF of $X$.
+
+\begin{align*} 
+F(x) &= P(X\leq x) \\ 
+&= \left \{ 
+\begin{array}{cc}
+                0 &\text{ if }  x < -3 \\ \\
+      \frac{1}{8} &\text{ if } -3 \leq x < -1 \\ \\
+      \frac{4}{8} &\text{ if } -1 \leq x < 1 \\ \\
+      \frac{7}{8} &\text{ if } 1 \leq x < 3 \\ \\
+                1 &\text{ if } x \geq 3
+\end{array} \right.
+\end{align*}
+
+c. Draw the probability histogram of $X$ in R.
+
+```{r}
+library(tidyverse)
+
+ht_df <- data.frame(
+  x = c(-3,-1,1,3),
+  probs = c(1/8,3/8,3/8,1/8))
+
+ggplot(data=ht_df, mapping = aes(x=x,y=probs))+
+  geom_col(width=1) + 
+  labs(title = "Probability Histogram of X",
+       y = "Probability of X",
+       x = "X=x") #+
+  #scale_x_continuous(breaks = c(-3,-1,1,3))
+```
+
+2. Suppose $X$ is a discrete uniform random variable on the integers $-n, -n + 1, -n +2, \dots, 0, 1, 2,\dots, n$, that is, 
+$$f(x) = P(X = x) = c, \ \ \ x = -n, -n+1, -n+2, \dots, 1,2,\dots,n.$$
+
+a. What is $c$?
+
+We know c must be positive, and by definition of PMF's we must have that $\sum_{x}f(x) = \sum_{x=-n}^{x=n}c = 1$. We see there are $n$ elements in $1, \dots, n$, and likewise $n$ elements in $-n,\dots,-1$, and thus adding in 0, there are $2n+1$ elements in this space. Thus we have that $c=\frac{1}{2n+1}$
+
+b. What is the PMF of  $$Y = -X? $$
+
+The possible values for Y are: $y = -n, -(n-1), \dots, 0, 1, \dots, n$. This is the same range as the random variable X. 
+
+we have that $P(Y=-n) = P(X=n) = c = \frac{1}{2n+1}$. This will extend to all values in the range of Y. 
+
+Thus the PMF of $Y$ will simply be the PMF of $X$ since the space is symmetric around 0 and has uniform probabilities. So we have:
+$$f(y) = P(Y = y) = c = \frac{1}{2n+1}$$  
+	  
