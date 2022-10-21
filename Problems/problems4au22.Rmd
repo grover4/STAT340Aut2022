@@ -1,0 +1,45 @@
+---
+title: "Problem Session 4"
+subtitle:  "Binomial Distribution & Mean of a Random Variable"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1. A box contains n chips numbered 1 through n.
+Assume that the probability of choosing chip i is equal
+to $k \cdot i,i = 1, 2,\dots, n$.
+
+a. What is $k$?  (Hint: the sum of the first $n$ integers is $n(n+1)/2$)
+
+b. Let $X$ denote the number on a randomly selected chip from the box. Write its PMF.
+
+c. Give an expression for $E\left[X \right]$. Put a box around your final answer. (Hint: the sum of the squares of the first $n$ integers is $n(n+1)(2n+1)/6$)
+
+2. A manufacturer of computer memory chips claims they have a 4% defective rate. A factory which assembles laptops orders 20 chips from them. Let the random variable $X$ denote the number of defective chips in the order. 
+
+a. What is the distribution of $X$? State the name of the distribution and also the values of its parameters. Be sure to state any assumptions you are making when deciding on the distribution.
+
+b. How many defective chips should the factory *expect* to receive?
+
+c. Calculate the probability that they will receive more defective chips than expected?
+
+
+
+3. Weird Wally offers you the following choice. You may have 1/3.5 dollars or you may roll a fair die and he will give you 1/X dollars where $X$ is the value of the roll. Which is the better deal? Calculate $E\left[ \frac{1}{X} \right]$ to decide.
+
+
