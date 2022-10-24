@@ -1,0 +1,92 @@
+---
+title: "Homework 4"
+subtitle: "Autumn 2022"
+author: "YOUR NAME"
+header-includes:
+    - \usepackage{setspace}\doublespacing
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+* * * 
+
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Nov 2 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+
+1. (Therapy) In the past, a person afflicted with a certain neurological disease had a 30% chance of complete recovery. A radically different therapy has been tested on 10 patients, 7 of whom recovered. Let the random variable $X$ denote the number (in a sample of 10) who recover using the new therapy. 
+
+a. What is the distribution of $X$ assuming the new therapy is no better than the old one? State the name of the distribution and also the values of its parameters. Be sure to state any assumptions you are making when deciding on the distribution. 
+
+b. Make a probability histogram of the distribution in part a. Add a vertical line at $x=7$ to the histogram using the `geom_vline` layer.  (*Hint* Type `? geom_vline` for help.)
+
+c. How *extreme* is a value of 7 under the presumed distribution in part a? The one-sided p-value which we will learn more about in STAT 342 is $P(X \geq 7)$. Calculate the one-sided p-value and report your answer in a complete sentence using inline code.  
+
+2. Suppose that fifty people are to be given a blood test to see who has a certain disease. The obvious laboratory procedure is to examine each person’s blood individually,
+meaning that fifty tests would eventually be run. An alternative strategy is to divide
+each person’s blood sample into two parts—say, A and B. All of the A’s would then
+be mixed together and treated as one sample. If that “pooled” sample proved to be negative for the disease, all fifty individuals must necessarily be free of the infection,
+and no further testing would need to be done. If the pooled sample gave a positive
+reading, of course, all fifty B samples would have to be analyzed separately.
+
+   Let the random variable $X$ denote the number of tests which will need to be performed. Also let $\pi$ denote the probability that a randomly selected person is infected with the disease.
+
+a. Write the PMF of $X$ in a tabular format. You may assume independence of outcomes among people. (\emph{Hint: $X$ only has 2 values: 1, 51}).
+
+b. Give an expression for $E\left[X \right]$. Show your steps beginning with the definition of an expected value.
+
+c. Make a line plot of $E\left[X \right]$ versus $p$. Does the graph make sense intuitively? Explain briefly. (You can use the `geom_function` layer as we did to graph the variance of a Bernoulli random variable )
+
+
+3. Suppose $X \sim Binom(n, \pi)$. 
+   
+a.  Prove the following identity for any $x = 2, 3, \dots, n$
+   $$x \cdot (x-1) \cdot \binom{n}{x} = n \cdot (n-1) \binom{n-2}{x-2}.$$  
+
+b. Find $E\left[ X (X-1) \right]$. (\emph{Hint: follow the derivation for $E\left[X \right]$ in Theorem 7.1 for the binomial random variable})
+   
+c. Use your result from part b. to show that 
+   $Var(X) = n \pi (1-\pi).$ (\emph{Hint:} 
+   $$\sum x (x-1) f(x) = \sum x^2 f(x) - \sum x f(x).$$
+   
+   
+4. Suppose $X \sim Binom(n, \frac{1}{2})$. 
+
+   a. What is the mean $\mu$ and standard deviation $\sigma$ of $X$?
+   
+   b. Use Chebyshev's inequality to find the smallest $n$ in order for 
+$$P \left(0.9 \times \frac{n}{2} < X < 1.1 \times \frac{n}{2} \right)$$ to be at least 90%.
+
+   (Hint: Show that the event $$0.9 \times \frac{n}{2} < X < 1.1 \times \frac{n}{2} $$ can be rewritten as $$|X - \mu | < 0.1 \times \sqrt{n} \times \sigma.$$ Then apply Chebyshev's inequality.)
+
+<!---
+a. Use Chebychev's inequality What can be said about the probability that $40 < X < 60$?
+
+\begi
+Suppose that it is known that the number of items produced in a factory during a
+week is a random variable - $X$-  with mean 50. 
+If the variance of a week’s production is known to equal 25, then what can
+be said about the probability that this week’s production will be between 40
+and 60? 
+
+<!---
+a. Use Chebyshev's inequality to get an upper bound on the probability that the $X$ is at least 2 standard deviations from expected.
+
+a. What can be said, using Chebyshev's inequality, about the  Assume $X \sim Binom(n, \frac{1}{2})$. Use Chebyshev's inequality to get a lower bound on $n$ so that
+$$P(|X - \frac{n}{2}| \geq 0.1 n ) \leq 0.1.$$
+
+--->
