@@ -36,7 +36,7 @@ b. Make a probability histogram of the distribution in part a. Add a vertical li
 
 c. How *extreme* is a value of 7 under the presumed distribution in part a? The one-sided p-value which we will learn more about in STAT 342 is $P(X \geq 7)$. Calculate the one-sided p-value and report your answer in a complete sentence using inline code.  
 
-2. Suppose that fifty people are to be given a blood test to see who has a certain disease. The obvious laboratory procedure is to examine each person’s blood individually,
+2. (Pooling blood) Suppose that fifty people are to be given a blood test to see who has a certain disease. The obvious laboratory procedure is to examine each person’s blood individually,
 meaning that fifty tests would eventually be run. An alternative strategy is to divide
 each person’s blood sample into two parts—say, A and B. All of the A’s would then
 be mixed together and treated as one sample. If that “pooled” sample proved to be negative for the disease, all fifty individuals must necessarily be free of the infection,
@@ -52,7 +52,7 @@ b. Give an expression for $E\left[X \right]$. Show your steps beginning with the
 c. Make a line plot of $E\left[X \right]$ versus $p$. Does the graph make sense intuitively? Explain briefly. (You can use the `geom_function` layer as we did to graph the variance of a Bernoulli random variable )
 
 
-3. Suppose $X \sim Binom(n, \pi)$. 
+3. (Proof) Suppose $X \sim Binom(n, \pi)$. 
    
 a.  Prove the following identity for any $x = 2, 3, \dots, n$
    $$x \cdot (x-1) \cdot \binom{n}{x} = n \cdot (n-1) \binom{n-2}{x-2}.$$  
@@ -64,7 +64,7 @@ c. Use your result from part b. to show that
    $$\sum x (x-1) f(x) = \sum x^2 f(x) - \sum x f(x).$$
    
    
-4. Suppose $X \sim Binom(n, \frac{1}{2})$. 
+4. (Chebyshev) Suppose $X \sim Binom(n, \frac{1}{2})$. 
 
    a. What is the mean $\mu$ and standard deviation $\sigma$ of $X$?
    
