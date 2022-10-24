@@ -49,7 +49,7 @@ a. Write the PMF of $X$ in a tabular format. You may assume independence of outc
 
 b. Give an expression for $E\left[X \right]$. Show your steps beginning with the definition of an expected value.
 
-c. Make a line plot of $E\left[X \right]$ versus $p$. Does the graph make sense intuitively? Explain briefly. (You can use the `geom_function` layer as we did to graph the variance of a Bernoulli random variable )
+c. Make a line plot of $E\left[X \right]$ versus $p$. Be sure to echo the code chunk. Does the graph make sense intuitively? Explain briefly. (You can use the `geom_function` layer as we did to graph the variance of a Bernoulli random variable )
 
 
 3. (Proof) Suppose $X \sim Binom(n, \pi)$. 
