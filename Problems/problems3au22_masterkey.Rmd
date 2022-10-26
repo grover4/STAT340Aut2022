@@ -1,5 +1,5 @@
 ---
-title: "Problem Session 3"
+title: "Problem Session 3 KEY"
 subtitle:  "Discrete Distributions: PMF and CDF"
 graphics: yes
 output: pdf_document
