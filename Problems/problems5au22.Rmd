@@ -1,0 +1,64 @@
+---
+title: "Problem Session 5"
+subtitle:  "Negative binomial"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1. (Mean and variance) With a Nevada Roulette, there are 38 numbers the wheel could land on when spun: 0, 00, 1, 2, $\dots$, 36. The single number bet has a payout of 35 to 1: which means you'll win \$35 for every dollar you bet . Suppose you bet \$5 on your favorite number. Let $X$ denote your \emph{net gain} in one play. The PMF of $X$ is shown in the table below.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|} \hline
+$x$ & -\$5 & \$170 \\ \hline 
+$f(x)$ & 37/38  & 1/38  \\ \hline
+\end{tabular}
+\end{table}
+
+  Calculate your expected net gain? By how much will your net gain typically vary from expected? Calculate the standard deviation of the net gain.
+
+2. (Chebychev) Suppose $X$ is a random variable with mean and variance both equal to 20. What can be said about $P( 0 <  X < 40)$?
+
+3. (Negative binomial) Suppose we wish to generate $X \sim Binom(10, \frac{1}{2})$ subject to the constraint $X \leq 3$. Say we use the following naive algorithm to accomplish this task:
+
+  - Generate $x$ from a $Binom(10, \frac{1}{2})$
+  
+  - Accept the value $x$ if $x <= 3$. Otherwise reject it.
+  
+a. Calculate the acceptance probability.
+
+b. Suppose we actually want 25 acceptable x values. Let $Y$ denote the number of rejections before we find our 25 acceptable values. What is the distribution of $Y$? 
+
+c. Make the probability histogram of $Y$. Just eyeballing, how many rejections are most likely before we get our acceptable 25?
+
+```{r}
+data.f <- tibble(
+  x = 25:150,
+  f = dnbinom(x, size = 25, prob = pbinom(3,10,0.5) )
+)
+
+ggplot(data.f, aes(x=x,y=f))+geom_col(width=1, alpha=0.5)
+
+
+```
+
+d. Generate $y+25$ binomials where $y$ is your answer for the most likely number of rejections from part c. How many do you reject?
+
+4. (Geometric series) Two golfers are playing sudden death to decide a tournament. The first one wins a hole with probability p, the second one wins with probability q, and holes are tied with probability r. Holes are independent, and the game stops the first time someone wins a hole. What is the probability that the first player wins?
+
