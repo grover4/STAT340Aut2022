@@ -43,12 +43,12 @@ $f(x)$ & 37/38  & 1/38  \\ \hline
    
    Thus we have that $Var(X) = `r 25*37/38 + 170^2/38 - (-5*37/38 + 170/38)^2`$. We thus have that $SD(X) = \$`r sqrt(25*37/38 + 170^2/38 - (-5*37/38 + 170/38)^2)`$.
    
-```{r}
+```{r echo=F}
 E_X <- -5*37/38 + 170/38
 sd_X <- sqrt(25*37/38 + 170^2/38 - (-5*37/38 + 170/38)^2)
 ```
    
-  The SD tells us the typical deviation in earnings from the average earnings ($E(X)$). Typically the values will be in the interval $[E(X)-SD(X),E(X)-SD(X)] = [`r E_X - sd_X`,`r E_X+sd_X`]$
+  The SD tells us the typical deviation in earnings from the average earnings ($E(X)$). Typically our net gain will be in the interval $[E(X)-SD(X),E(X)-SD(X)] = [`r E_X - sd_X`,`r E_X+sd_X`]$
   
 2. (Chebychev) Suppose $X$ is a random variable with mean and variance both equal to 20. What can be said about $P( 0 <  X < 40)$?
 
