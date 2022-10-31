@@ -30,7 +30,7 @@ library(tidyverse)
    \centering
    \begin{tabular}{ccc}
    $x$ & a & b \\ \hline
-   $f(x) & $\pi$ & $(1-\pi)$ \\ \hline
+   $f(x)$ & $\pi$ & $(1-\pi)$ \\ \hline
    \end{tabular}
    \end{table}
    
