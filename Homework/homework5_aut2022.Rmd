@@ -94,9 +94,5 @@ Let $X$ denote the number of mites on a randomly selected leaf. In this question
 
 b. Make side-by-side plots showing how well each model fits. Each plot must have the histogram of the data with the probabilities according to the model overlaid on it. Which model appears to fit the data better? (Be sure to echo your code. Don't forget labels, titles etc. )
 
-   \emph{Hint: For help with the code for side-by-side plots, look at Section 8.1 on the negative binomial. For help on overlaying theoretical probabilities on a histogram, look at  section 8.2 on the Poisson distribution.}
-
-
-
-
+  \emph{Hint: For help with the code for side-by-side plots, look at Section 8.1 on the negative binomial. For help on overlaying theoretical probabilities on a histogram, look at  section 8.2 on the Poisson distribution.}
 
