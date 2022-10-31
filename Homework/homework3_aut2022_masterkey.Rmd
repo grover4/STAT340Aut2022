@@ -1,0 +1,188 @@
+---
+title: "Homework 3 KEY"
+subtitle: "Autumn 2022"
+author: "YOUR NAME"
+header-includes:
+    - \usepackage{setspace}\doublespacing
+    - \usepackage{array}
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+* * * 
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Oct 26 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+1. (Shelley) Below are the last five lines of Shelley's poem *Ozymandias* 
+
+   ```{verbatim}
+   "My name is Ozymandias, king of kings:
+    Look on my works, ye Mighty, and despair!"
+    Nothing beside remains. Round the decay
+    Of that colossal wreck, boundless and bare
+    The lone and level sands stretch far away 
+   ```
+
+   Let $X$ denote the length of a word which is randomly selected from those lines. 
+
+a. Write the P.M.F. of $X$ in tabular form. 
+
+  The possible values of $X$ will be found by counting the number of letters in each word. Since each of the 36 words are equally likely to be selected, the probabilities for each value of $x$ is simply the number of words of that length. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccccccccccc}
+$x$ & 2 & 3& 4 & 5 & 6 & 7 & 8 & 9 & 10  \\ \hline
+$f(x)$ & $\frac{7}{36}$ & $\frac{6}{36}$ & $\frac{7}{36}$ & $\frac{7}{36}$ & $\frac{2}{36}$ & $\frac{4}{36}$ & $\frac{1}{36}$ & $\frac{1}{36}$ & $\frac{1}{36}$
+\end{tabular}
+\end{table}
+    
+b. Make a probability histogram of the distribution in part a.
+
+```{r}
+shelley_df <- data.frame( 
+  x = c(2,3,4,5,6,7,8,9,10),
+  prob = c(7/36,6/36,7/36,7/36,2/36,4/36,1/36,1/36,1/36) )
+
+ggplot(data = shelley_df, 
+       mapping = aes(x=x, y =prob) )+
+  geom_col(width = 1, color = "purple", fill = "gold") +
+  labs(x = "Length of word",
+       y = "Probability",
+       title="An analysis of Shelley's writing style",
+       subtitle = "Ozymandias")
+
+
+```
+c. Write the C.D.F. of $X$.
+
+The CDF of $X$ is simply the accumulated probability at each possible value of $x$. This is shown below:
+
+\begin{align*}
+F(x) &= P(X \leq x) \\
+&= \left\{ \begin{array}{cc} 
+           0 & x < 2 \\
+           \frac{7}{36} & 2 \leq x < 3 \\
+           \frac{13}{36} & 3 \leq x < 4 \\
+           \frac{20}{36} & 4 \leq x < 5 \\
+           \frac{27}{36} & 5 \leq x < 6 \\
+           \frac{29}{36} & 6 \leq x < 7\\
+           \frac{33}{36} & 7 \leq x < 8 \\
+           \frac{34}{36} & 8 \leq x < 9\\
+           \frac{35}{36} & 9 \leq x < 10 \\
+           1 & 10 \leq x \end{array} \right.
+\end{align*}
+\dotfill
+
+2. (Random walk) Suppose a particle moves 4 steps along the x-axis, starting at 0. At each step, it moves one unit to the right or to the left and is equally  likely to go to the right as it is to the left. 
+
+a. Each possible outcome of this experiment is a 4-tuple. For example, the outcome $(L, L, L, L)$ represents the case when the particle moves one unit to the left at each of the four steps to end up at $x=-4$. The outcome $(R, L, R, L)$ represents the case when the particle moves one unit to the right, then one unit back to the left and so on ending up at $x=0$. How many elements are in the sample space? Be sure to calculate the number and also justify your answer.
+
+There are $2^4$ or 16 possible outcomes in the sample space. We arrive at this answer by a simple application of the \textbf{multiplication} rule for counting. Specifically, the first step has 2 possibilities: L, R. For each choice there are two choices for the second and so on.  
+
+b. Let $E$ denote the event that the particle ends up at $x = 0$. Write the outcomes in $E$ and calculate $P(E)$. Be sure to justify your answer.
+
+The outcomes in $E$ are as shown below. 
+
+$$E = \left\{ (L,R,L,R); (R, L, R, L); (L, L, R, R); (R, R, L, L); (L, R, R, L); (R, L, L, R) \right\}.$$
+
+Assuming that each outcome in $S$ is equally likely, we have
+$$P(E) = \frac{6}{16}.$$
+
+c. Let $X$ denote the position of the particle after 4 steps. Write its PMF in a tabular format. I have created a partial table for you to fill in. Each row should contain a possible value $x$, the outcomes that give the possible value and the probability. (*Hint: in part b you calculated $P(X = 0)$.*)
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|p{4in}|r|} \hline
+$x$ &  outcomes from $S$ & $f(x)$ \\ \hline 
+-4 & (L, L, L, L) & $\frac{1}{16}$ \\ 
+-2 & (L, L, R, L); (L, L, L, R); (L, R, L, L); (R, L, L, L) & $\frac{4}{16}$ \\ 
+0 & (L,R,L,R); (R, L, R, L); (L, L, R, R); (R, R, L, L); (L, R, R, L); (R, L, L, R) & $\frac{6}{16}$ \\ 
+2 & (R, R, R, L); (R, R, L, R); (R, L, R, R); (L, R, R, R) & $\frac{4}{16}$ \\ 
+4 & (R, R, R, R) & $\frac{1}{16}$
+\end{tabular}
+\end{table}
+
+d. How would the PMF change if the particle was twice as likely to move to the right as it is to the left? Create a table showing the new PMF. Also clearly state any assumption you need to make in order to re-calculate the probabilities. 
+
+Now we are being told that the probability of moving to the right at a particular step is $\frac{2}{3}$. Naturally the probability of moving left is then $\frac{1}{3}$ since those are the only two options for each step. 
+
+To find the probability of an outcome, say (L, L, L, L) we can calculate it so long as we assume \textbf{independence} between the steps. This means the direction the particle moves on any step is not affected by the direction on any other step. Hence
+$$P(L,L,L,L) = P(L) \times P(L) \times P(L) \times P(L) = \frac{1}{3^4}.$$
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|p{4in}|r|} \hline
+$x$ &  outcomes from $S$ & $f(x)$ \\ 
+-4 & (L, L, L, L) & $\frac{1}{3} \times \frac{1}{3} \times \frac{1}{3} \times \frac{1}{3} = \frac{1}{3^4}$ \\ 
+-2 & (L, L, R, L); (L, L, L, R); (L, R, L, L); (R, L, L, L) & $4 \times \frac{1}{3} \times \frac{1}{3} \times \frac{1}{3} \times \frac{2}{3} = \frac{8}{3^4}$ \\ 
+0 & (L,R,L,R); (R, L, R, L); (L, L, R, R); (R, R, L, L); (L, R, R, L); (R, L, L, R) & $6 \times \frac{1}{3} \times \frac{1}{3} \times \frac{2}{3} \times \frac{2}{3} = \frac{24}{3^4}$ \\
+2 & (R, R, R, L); (R, R, L, R); (R, L, R, R); (L, R, R, R) & $4 \times \frac{1}{3} \times \frac{2}{3} \times \frac{2}{3} \times \frac{2}{3} = \frac{32}{3^4} $ \\ 
+4 & (R, R, R, R) & $\frac{2}{3} \times \frac{2}{3} \times \frac{2}{3} \times \frac{2}{3} = \frac{16}{3^4} $
+\end{tabular}
+\end{table}
+
+
+\dotfill
+
+3. (CDF) Suppose the random variable $X$ has the CDF:
+\begin{align*}
+F(x) &= P(X \leq x), \\
+     &= \left\{ \begin{array}{cc}
+                      0 & x < 0, \\ \\
+            \frac{1}{3} & 0 \leq x < \frac{2}{5}, \\ \\
+            \frac{3}{4} & \frac{2}{5} \leq x  < \frac{4}{5}, \\ \\
+                      1 & \frac{4}{5} \leq x. \end{array} \right.
+\end{align*}
+
+   Find $P(\frac{1}{4} < X < \frac{3}{4})$. Show your work.
+
+   $$P(\frac{1}{4} < X < \frac{3}{4}) = P(X < 3/4) - P(X \leq \frac{1}{4}).$$
+   
+   The second probability can be found directly from the CDF since
+   $$P(X \leq \frac{1}{4}) = F(\frac{1}{4}) = \frac{1}{3}$$ since $x=\frac{1}{4}$ is in the interval $0 \leq x < \frac{2}{5}$.
+   
+   In order to find the second probability we can write 
+   \begin{align*}
+   P(X < \frac{3}{4}) &= P(X \leq \frac{3}{4}) - P(X = \frac{3}{4}), \\
+   &= F(\frac{3}{4}) = \frac{3}{4}.
+   \end{align*}
+   
+   The last equation follows since the mass function at $x=3/4$ is 0 since there is no change in the CDF at this point since the last jump.
+   
+   Putting this together, the desired probability is 
+   $$P(\frac{1}{4} < X < \frac{3}{4} ) = \frac{3}{4} - \frac{1}{3}  = \frac{5}{12}.$$
+\dotfill
+
+4. (Transformation) Suppose $X$ is a discrete uniform random variable on the integers $-n, -n + 1, -n +2, \dots, 0, 1, 2,\dots, n$, that is, 
+$$f(x) = P(X = x) = \frac{1}{2n + 1}, \ \ \ x = -n, -n+1, -n+2, \dots,-1, 0,1,2,\dots,n - 1, n.$$
+
+   Write the PMF of $Y = |X|$. Be sure to offer some explanation for your work.
+   
+   The range of $Y$ is $0,1,2,\dots,n$ since $Y$ can only take non-negative values.
+   
+   To find its PMF we reason as follows. For $y = 0$
+   $$P(Y = 0) = P(|X| = 0) = P(X = 0) = \frac{1}{2n+1}.$$
+   For $y = 1,2,\dots,n$
+   \begin{align*}
+   P(Y=y) &= P(|X| = y) =  P(X = y \cup X = -y)\\
+   &= P(X = y) + P(X = -y) \\
+   &= f(y) + f(-y) \\
+   &= \frac{1}{2n+1} + \frac{1}{2n+1}\\
+   &= \frac{2}{2n+1}.
+   \end{align*}
+   
+   
