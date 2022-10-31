@@ -25,7 +25,7 @@ library(tidyverse)
 
 * * *
 
-1. (Linear transformations) Suppose that the PMF of $X$ is given by:
+1. (Linear transformation) Suppose that the PMF of $X$ is given by:
    \begin{table}[h]
    \centering
    \begin{tabular}{ccc}
