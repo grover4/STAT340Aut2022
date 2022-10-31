@@ -1,0 +1,133 @@
+---
+title: "Problem Session 5 KEY"
+subtitle:  "Negative binomial"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1. (Mean and variance) With a Nevada Roulette, there are 38 numbers the wheel could land on when spun: 0, 00, 1, 2, $\dots$, 36. The single number bet has a payout of 35 to 1: which means you'll win \$35 for every dollar you bet . Suppose you bet \$5 on your favorite number. Let $X$ denote your \emph{net gain} in one play. The PMF of $X$ is shown in the table below.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|c|c|} \hline
+$x$ & -\$5 & \$170 \\ \hline 
+$f(x)$ & 37/38 & 1/38  \\ \hline
+\end{tabular}
+\end{table}
+
+   Calculate your expected net gain? By how much will your net gain typically vary from expected? Calculate the standard deviation of the net gain.
+   
+   We may solve for $E(X)$ using the definition:
+   
+   $E(X) = \sum_x xf(x) = -5(\frac{37}{38}) + 170(\frac{1}{38}) = \$`r -5*37/38 + 170/38`$
+   
+   We know $Var(X) = E(X^2) - E(X)^2$. We know $E(X)$, so we can now find $E(X^2)$
+   
+   $E(X^2) = \sum_x x^2f(x) = (-5)^2(\frac{37}{38}) + 170^2(\frac{1}{38}) = `r 25*37/38 + 170^2/38`$
+   
+   Thus we have that $Var(X) = `r 25*37/38 + 170^2/38 - (-5*37/38 + 170/38)^2`$. We thus have that $SD(X) = \$`r sqrt(25*37/38 + 170^2/38 - (-5*37/38 + 170/38)^2)`$.
+   
+```{r}
+E_X <- -5*37/38 + 170/38
+sd_X <- sqrt(25*37/38 + 170^2/38 - (-5*37/38 + 170/38)^2)
+```
+   
+   
+   The SD tells us the typical deviation in earnings from the average earnings ($E(X)$). Typically the values will be in the interval $[E(X)-SD(X),E(X)-SD(X)] = [`r E_X - sd_X`,`r E_X+sd_X`]$
+
+2. (Chebychev) Suppose $X$ is a random variable with mean and variance both equal to 20. What can be said about $P( 0 <  X < 40)$?
+
+  We have that:
+  \begin{align*}
+  P( 0 <  X < 40) & \\
+  &= P(-20 < X-20 < 20) \\
+  &= P(\frac{-20}{\sqrt{20}} < \frac{X-20}{\sqrt{20}} < \frac{20}{\sqrt{20}}  ) \\
+  &= P(-\sqrt{20} < \frac{X-20}{\sqrt{20}} < \sqrt{20}) \\ 
+  &= P(\frac{|X-20|}{\sqrt{20}} < \sqrt{20}) \\
+  &= 1 - P(\frac{|X-20|}{\sqrt{20}} \geq \sqrt{20}) \\
+  &= 1 - P(|X-20| \geq \underbrace{\sqrt{20}}_{\sigma} \times \underbrace{\sqrt{20}}_k) \\
+  &\geq  1-\frac{1}{\underbrace{\sqrt{20}^2}}_{k^2} \\ 
+  &= `r 1-(1/20)`
+  \end{align*}
+
+3. (Negative binomial) Suppose we wish to generate $X \sim Binom(10, \frac{1}{2})$ subject to the constraint $X \leq 3$. Say we use the following naive algorithm to accomplish this task:
+
+  - Generate $x$ from a $Binom(10, \frac{1}{2})$
+  
+  - Accept the value $x$ if $x <= 3$. Otherwise reject it.
+  
+a. Calculate the acceptance probability.
+
+  We accept $x$ if $x\leq3$. Thus the acceptance probability is $P(X\leq3)$. We can find this using `pbinom`, and we have that $P(X\leq3) = `r pbinom(3,10,.5)`$
+
+b. Suppose we actually want 25 acceptable x values. Let $Y$ denote the number of rejections before we find our 25 acceptable values. What is the distribution of $Y$? 
+
+$Y$ is a negative binomial distribution, so $Y\sim NBinom(s=25,\pi = `r pbinom(3,10,.5)`)$
+
+c. Make the probability histogram of $Y$. Just eyeballing, how many rejections are most likely before we get our acceptable 25?
+
+```{r}
+data.f <- tibble(
+  x = 0:150,
+  f = dnbinom(x, size = 25, prob = pbinom(3,10,0.5) )
+)
+
+ggplot(data.f, aes(x=x,y=f))+geom_col(width=1, alpha=0.5)
+```
+
+The histogram peaks around X=115, indicating that is the most likely number of rejections.
+
+d. Generate $y+25$ binomials where $y$ is your answer for the most likely number of rejections from part c. How many do you reject?
+
+```{r}
+set.seed(1414)
+
+y<-rbinom(n=145,size=10,prob=0.5)
+sum(y >3)
+```
+
+
+4. (Geometric series) Two golfers are playing sudden death to decide a tournament. The first one wins a hole with probability p, the second one wins with probability q, and holes are tied with probability r. Holes are independent, and the game stops the first time someone wins a hole. What is the probability that the first player wins?
+
+Player A wins the game if they win the game first. 
+
+Let X be the number of games it takes for player A to win. Then X can be 1, 2 (tie, win), 3(tie, tie, win), ... .
+
+P(Player A Wins) = $P(X=1\cup X=2 \cup \dots) = \sum_{i=1}^{\infty}P(X=i)$
+
+The probability player A wins in $X=x$ games is $r^{x-1}p$, where $x=1,2,\dots$.
+
+Thus P(Player A Wins) = $\sum_{x=1}^{\infty} r^{x-1}p$
+
+So we have that:
+\begin{align*}
+P(A) &= \\ 
+&= \sum_{x=1}^{\infty} r^{x-1}p \\
+&= \sum_{x=1}^{\infty} r^{x-1}p \\
+&= (p + pr + pr^2 + \dots) \\
+&= p\frac{1}{1-r}
+\end{align*}
+
+Here we use the identity:
+
+$\sum_{k=0}^{\infty} ar^k =  a + ar + ar^2 \dots = \frac{a}{1-r}$ for $r<1$. Here we have a fraction with the numerator as the common term of the series, and the denominator as $1-r$ where r is the geometric rate. 
+
+
+
+
+
