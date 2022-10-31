@@ -72,21 +72,3 @@ c. Use your result from part b. to show that
 $$P \left(0.9 \times \frac{n}{2} < X < 1.1 \times \frac{n}{2} \right)$$ to be at least 90%.
 
    (Hint: Show that the event $$0.9 \times \frac{n}{2} < X < 1.1 \times \frac{n}{2} $$ can be rewritten as $$|X - \mu | < 0.1 \times \sqrt{n} \times \sigma.$$ Then apply Chebyshev's inequality.)
-
-<!---
-a. Use Chebychev's inequality What can be said about the probability that $40 < X < 60$?
-
-\begi
-Suppose that it is known that the number of items produced in a factory during a
-week is a random variable - $X$-  with mean 50. 
-If the variance of a week’s production is known to equal 25, then what can
-be said about the probability that this week’s production will be between 40
-and 60? 
-
-<!---
-a. Use Chebyshev's inequality to get an upper bound on the probability that the $X$ is at least 2 standard deviations from expected.
-
-a. What can be said, using Chebyshev's inequality, about the  Assume $X \sim Binom(n, \frac{1}{2})$. Use Chebyshev's inequality to get a lower bound on $n$ so that
-$$P(|X - \frac{n}{2}| \geq 0.1 n ) \leq 0.1.$$
-
---->
