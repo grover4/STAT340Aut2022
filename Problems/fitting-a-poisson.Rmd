@@ -1,0 +1,31 @@
+---
+title: "Modeling fumbles"
+author: " "
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)               #for functions
+library(fastR2)                  #for data
+```
+
+
+1. Load the data `Fumbles` into the Environment by typing `data(fumbles)` in the Console. Take a look at it in the spreadsheet viewer. 
+
+2. Create the frequency distribution of the number of fumbles in `week2`   
+
+3. Using `summarize` print the mean and standard deviation of the number of fumbles made in `week2`. 
+
+4. Create a new dataframe called `pois_fit` that contains the probabilities for the Poisson distribution with $\lambda$ equal to the mean from 3. 
+
+5. Create a histogram of the number of fumbles for `week2` on a density scale. Superimpose the Poisson probabilities on the histogram. Is it a good fit?
+
+6. (If we have time) Repeat parts 1 through 5 for a new variable - `total` - the total number of fumbles across all three weeks. 
+
+```{r create-total}
+
+Fumbles <- Fumbles %>% 
+             mutate(total = week1 + week2 + week3)
+```
