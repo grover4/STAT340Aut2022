@@ -97,15 +97,3 @@ b. Make side-by-side plots showing how well each model fits. Each plot must have
    \emph{Hint: For help with the code for side-by-side plots, look at Section 8.1 on the negative binomial. For help on overlaying theoretical probabilities on a histogram, look at  section 8.2 on the Poisson distribution.}
 
 
-
-
-
-Free throw Freddy is an 80% shooter. At the end of practice, he shoots until he makes 10 baskets. 
-
-a. Let $X$ be the number of misses till he makes 10 baskets. What is the distribution of $X$? Be sure to give any assumptions you are making.
-
-b. Draw the probability histogram of $X$ over a reasonable range of values. Be sure to add a title, axis labels. Show your code.
-
-c. Calculate the probability that Freddy needs 15 or more attempts to make the 10 baskets. Calculate the probabilty in a code chunk. Show the code. Then write the probability - rounded to 4 digits - in a complete sentence using inline code. (Type ?round for help. ) 
-
-
