@@ -1,0 +1,89 @@
+---
+title: "Homework 6"
+subtitle: "Autumn 2022"
+author: "YOUR NAME"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+* * * 
+
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Nov 16 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+
+1. The number of chocolate chips in a certain type of cookie has a Poisson distribution. We want the probability that a randomly chosen cookie has at least 2 chocolate chips to be greater than 0.99. 
+
+a. Make a line plot of this probability as a function of $\lambda$. 
+
+b. Find the smallest value of the parameter $\lambda$ of this distribution that ensures this probability.
+
+(Modify the \texttt{uniroot} code below. You can pick 0 for a lower bound for the mean and 10 for the upper bound )
+
+
+```{r  eval=F}
+#The function uniroot searches the interval from lower to upper
+#for a root of the function. Type ?uniroot for more information.
+
+#to find x so that x(x^2-1)+0.5=0 in the range -2, 2
+##use the following code
+
+uniroot(f = function(x){ x*(x^2-1)+.5}, lower=-2, upper=2)  
+
+```
+
+
+2. (Symmetry) Suppose that $f(x)$ is the PDF corresponding to a continuous random variable which is symmetrically distributed about 0. That is, for any $a > 0$
+   $$f(a) = f(-a).$$
+	Show that 
+	$$P(-a \leq X \leq a) = 2 F(a) - 1$$ where $F(x)$ is the CDF corresponding to  $f(x)$. 
+
+    \emph{Hint:} 
+     $$P(-a \leq X \leq a) = P(X \leq a) - P(X < -a).$$ 
+     Write
+     $$P(X < -a ) = \int\limits_{-\infty}^{-a} f(x) dx.$$ 
+     Make a change of variable $u = -x$ and proceed from there.
+
+  
+4. (Flooding river) A river floods every year. Suppose that the low-water mark is set at 1 and the high-water mark $X$ has CDF
+\begin{align*}
+	F_X(x) &= P(X \leq x) \\
+	       &= \left\{ \begin{array}{cc} 
+		               0 & x < 1 \\
+		               1 - 1/x^2 & 1 \leq x < \infty. \end{array} \right.
+\end{align*}
+
+a.  Find a PDF, $f(x)$ for $X$.
+
+b. If the low-water mark is set to 0 and we use a unit of measurement that is $\frac{1}{10}$ of that given previously, the high-water mark becomes 
+     $$Y=10\:(X-1).$$ 
+     
+   Find $P(Y \leq 1)$. 
+   
+  
+4. The following ordered set of 27 P-values (from Kaati et al., Eur. J. Hum Genetics 2007) were the result of testing many independent subgroups of a sample. 
+
+```{r pvalues}
+pvalue_df <- data.frame( 
+  pval = c(0.01, 0.01, 0.02, 0.04, 0.04, 0.05, 0.07, 0.07, 0.10, 0.19, 0.24, 0.27, 0.34,
+0.37, 0.44, 0.50, 0.53, 0.54, 0.55, 0.61, 0.70, 0.77, 0.80, 0.80, 0.82, 0.94, 0.99)
+)
+```
+
+It is hypothesized that the P-values all come from a
+uniform distribution on $[0,1)$. Fit a uniform distribution to these data. How well does it fit (just visually)?
+
