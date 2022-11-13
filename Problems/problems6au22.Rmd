@@ -1,0 +1,48 @@
+---
+title: "Problem Session 6"
+subtitle:  "Continuous Distributions"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1. The number of eggs laid on a tree leaf by an insect
+of a certain type is a Poisson random variable $X$ with
+parameter $\lambda$. However, such a random variable
+can be \emph{observed} only if $X$ is positive, since if $X$ is
+0 then we cannot know that such an insect was on
+the leaf. Let $Y$ denote the observed number
+of eggs.
+
+a. Write the PMF of $Y$. 
+
+b. Find $E\left[Y \right]$.
+
+
+2. Karen is studying for a history exam, where the teacher is going to choose 5 essay questions randomly from the 10 he has given the class. Due to an upcoming probability exam, she only has limited time to prepare for the history exam. Is it enough to study 8 out of the 10 questions if she wants at least an 85% chance of being familiar with at least four of the five assigned questions?
+
+3. Suppose $f(x)$ and $g(x)$ are PDFs and $\alpha \in [0,1]$ then show that \[\alpha f(x) + (1-\alpha) g(x) \] is also a PDF. 
+
+
+4. If $Y$ is uniformly distributed over $[0,5)$, calculate the probability that the roots of the equation in $x$
+	\begin{align*}
+		4x^2 + 4xY + Y + 2 &= 0
+	\end{align*} are both real.
+
+   \emph{Hint: The roots of the equation $ax^2+bx+c=0$ are real if the discriminant $b^2-4ac \geq 0$.}
+   
+ 
