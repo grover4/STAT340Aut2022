@@ -1,0 +1,248 @@
+---
+title: "Homework 5"
+subtitle: "Autumn 2022"
+author: "KEY"
+header-includes:
+    - \usepackage{setspace}\doublespacing
+    - \usepackage{amsmath}
+    - \usepackage{amsthm}
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+```
+
+* * * 
+
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Nov 9 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+1. (Linear transformations) Suppose that the PMF of $X$ is given by:
+   \begin{table}[h]
+   \centering
+   \begin{tabular}{ccc}
+   $x$ & a & b \\ \hline
+   $f(x)$ & $\pi$ & $(1-\pi)$ \\ \hline
+   \end{tabular}
+   \end{table}
+   
+   where $a$ and $b$ are some numbers. Answer the following. Be sure to support your answers.
+   
+a. Find $E \left[ X \right]$.
+   
+   \begin{align*}
+   E\left[X\ \right] &= \sum\limits_{x} x \cdot f(x),\\
+   &= a \cdot \pi + b \cdot (1- \pi),
+   &= b + \pi (a - b).
+   \end{align*}
+   
+b. Find $Var \left[ X \right]$.
+
+   By the short cut formula for calculating variance 
+   $$Var\left[X \right] = E\left[X^2 \right] - \mu^2$$
+   where $\mu = E\left[X \right]$.
+   
+   By the law of the unconscious probabilist: 
+   \begin{align*}
+   E\left[X^2 \right] &= \sum\limits_{x} x^2  \cdot f(x),\\
+   &= a^2 \cdot \pi + b^2 \cdot (1-\pi),\\
+   &= b^2 + \pi (a^2 - b^2).
+   \end{align*}
+   
+   Therefore:
+   \begin{align*}
+   Var\left[ X \right] &= b^2 + \pi (a^2 - b^2) - (b + \pi (a-b) )^2, \\
+   &= b^2 + \pi (a^2 - b^2) - b^2 - \pi^2 (a-b)^2 - 2 \pi (a-b)\cdot b,\\
+   &= \pi (a-b) \cdot (a+b) - \pi^2 (a-b)^2 - 2 \pi (a-b) \cdot b,\\
+   &= \pi (a-b) (a + b - 2b) - \pi^2 (a-b)^2\\
+   &= \pi (1-\pi) (a-b)^2.
+ \end{align*}
+ 
+c. Find $E\left[ \frac{X - b}{a - b} \right]$.
+
+   By linearity of expected values, we have 
+  $$E\left[ \frac{X - b}{a - b} \right] = \frac{E\left[X \right]}{a - b} - \frac{b}{a-b}.$$
+  
+  Using the expression for $E\left[X \right]$ from part a, we have:
+  \begin{align*}
+  E\left[\frac{X - b}{a - b} \right] &= \frac{b + \pi(a - b)}{a-b} - \frac{b}{a-b},\\
+  &= \pi.
+  \end{align*}
+  
+d. Find $Var \left[ \frac{X - b}{a - b} \right]$.
+  
+   By Lemma 7.4, we have 
+  $$Var\left[ \frac{X - b}{a-b} \right] = \frac{1}{(a-b)^2} Var\left[ X \right].$$
+   
+   Therefore
+   \begin{align*}
+   Var\left[ \frac{X - b}{a-b} \right] &= \pi (1-\pi).
+   \end{align*}
+
+2. (Rh negative) In the US population, 85% have an agglutinating factor in their blood classifying them as Rh positive, while 15% lack the factor and are Rh negative. A medical researcher wants to analyze blood from a newborn Rh negative infant, so he examines the blood types of successive newborn infants until he finds an Rh negative infant. 
+
+a. How many Rh positive infants should they expect to type before they find their first Rh negative? Be sure to set up the problem (random variable, distribution, assumptions you need to make) and clearly \textbf{state} any results you are using before just using them.
+
+   The random variable $X$ denotes the number of Rh positive infants they type before their first Rh negative. 
+  
+   Each trial is the typing of an infant. On each trial we have two outcomes: Rh positive (failure) and Rh negative( success). The probability of a Rh negative, $\pi$,  is the same for each infant (15%). Finally, we will \emph{assume} that the outcome for an infant is independent of the outcome for another infant. \textbf{This means whether or not one infant is Rh negative has no relation to whether or not another infant is Rh negative.}
+  
+   Under these conditions,
+  $$X \sim Geom(\pi = 0.15).$$
+  
+   Further, from theorem 8.2:
+  $$E\left[ X \right] =\frac{1-\pi}{\pi} = \frac{0.85}{0.15} = `r round(0.85/0.15,4)` \ \mbox{infants}$$
+  
+   \textbf{Note:} We do not need to round the expected value to the nearest integer. This is because expected does not mean that we expect to observe this on the next trial. It's an average.
+
+b. Calculate the probability that they will type more Rh positive infants than expected. This probability can be calculated exactly as shown in class. Give the closed form expression for this probability and then calculate it in R. Be sure to echo your code chunk. 
+
+   In this part, we want $P(X > `r round(0.85/0.15, 4)` )$. Since $X$ takes integer values only, this is equivalent to $P(X \geq `r ceiling(0.85/0.15)` )$. By example 8.2, 
+   $P(X \geq `r ceiling(0.85/0.15)` ) = (1 - 0.15)^{`r ceiling(0.85/0.15)`} = `r round( (1-0.15)^(ceiling(0.85/0.15)), 4)`$
+   
+3. (Memoryless) Let $X$ be a geometric random variable with probability $\pi$. That is,
+$$f(x) = \pi \cdot (1 - \pi)^{x}, \ \ x = 0, 1, 2 \dots$$ 
+
+a. Let $k$ be some non-negative integer. What is $P(X \geq k)$?  (\emph{Hint:} we did this in class, I want you to do it again.)
+
+   \begin{align*}
+   P(X \geq k) &= P(X = k) + P(X = k+1) + P(X = k+2 ) + \dots \\
+   &= (1-\pi)^{k}\cdot \pi + (1- \pi)^{k+1} \cdot \pi + \dots (1- \pi)^{k+2} \cdot \pi + \dots \\
+   &= (1-\pi)^{k} \left( \pi + \pi (1-\pi) + \pi (1-\pi)^2 +\dots  \right)\\
+   &= (1-\pi)^{k} \frac{\pi}{1-(1-\pi)} \ \ \mbox{geometric series}\\
+   &= (1-\pi)^{k}.
+  \end{align*}
+
+b. Show that for all non-negative integers  $x (\geq k)$
+$$P(X \geq x | X \geq k) = P(X \geq x -k).$$
+
+   Before we begin with the proof, note that the set $$X \geq x \subseteq X \geq k$$
+   because any $x$ that satisfies the left hand condition also satisfies the right hand condition. 
+ 
+   
+```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "50%", fig.align = "center"}
+
+ggplot(data = NULL) +
+  geom_line(mapping = aes(x = 0:5, y = 0))+
+  geom_segment( mapping = aes(x = 3, xend = 3, y = -0.003, yend = 0.007))+
+  geom_segment( mapping = aes(x = 1, xend = 1, y = -0.003, yend = 0.003))+
+  annotate(geom = "text", x = 3, y = -0.007,label = "x")+
+  annotate(geom = "text", x = 1, y = -0.007,label = "k")+
+  geom_segment( mapping = aes(x = 3, xend = 5, y = 0.007, yend = 0.007), arrow = arrow(length = unit(0.3, "cm")),color="purple")+
+  geom_segment( mapping = aes(x = 1, xend = 5, y = 0.003, yend = 0.003), arrow = arrow(length = unit(0.3, "cm")),color="red")+
+  annotate(geom = "text", x=3.2, y = 0.012, label = expression(X >= x))+
+  annotate(geom = "text", x=1.2, y = 0.006, label = expression(X >= k))+
+    ylim(c(-0.05,0.05))+
+  theme_void()
+
+```
+
+
+   Therefore, the intersection of these two sets is simpler the smaller one:
+   $$P(X \geq k \cap X \geq x) = P(X \geq x).$$
+   Using the definition of conditional probability we have
+   \begin{align*}
+   P(X \geq x | X \geq k) &= \frac{P(X \geq x \cap X \geq k)}{X \geq k)},\\
+   &= \frac{P(X \geq x)}{P(X \geq k)}, \\
+   &= \frac{ (1-\pi)^{x}}{(1-\pi)^{k}},\\
+   &= (1-\pi)^{x-k} = P(X = (x-k)).
+   \end{align*}
+   
+c. Because of this result, we say that the geometric distribution is \emph{memoryless}. Explain how this is an appropriate name for this property.
+
+   The word memoryless is appropriate for the result in part b since it says that if we have waited at least $k$ trials for the first success, the probability that we have to wait at least another $x-k$ trials is the same as initial probability of waiting at least $(x-k)$ trials. That is, it is as the process has no memory that we have already waited for at least $k$ trials.
+
+4. (Apple trees) From each of 6 trees in an apple orchard, 25 leaves are selected. On each of the leaves, the number of adult mites are counted. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{c|ccccccccc} \hline
+$x$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8+ \\
+count & 70 & 38 & 17 & 10 & 9 & 3 & 2 & 1 & 0 \\ \hline
+\end{tabular}
+\end{table}
+
+   The dataset can be created in R as shown below. Type `?rep` for help. 
+
+```{r apple-data, echo = FALSE}
+apple_trees<-tibble(
+         mites=rep(0:7,
+                    times=c(70,38,17,10,9,3,2,1) ))
+
+```
+
+a. Print the number of observations (leaves) in the data set along with the mean $\bar{x}$ and standard deviation $s$ of the `mites` variable. Be sure to show your code. 
+
+```{r }
+apple_trees %>% summarise(n = n(), 
+                          mean = mean(mites),
+                          sd = sd(mites))
+
+```
+
+  Let $X$ denote the number of mites on a randomly selected leaf. In this question, you will consider two possible models for $X$:
+
+ - $X \sim Poisson(\lambda = \bar{x})$ 
+    
+ - $X \sim Geom( prob = \frac{1}{1 + \bar{x}} )$
+    
+   where $\bar{x}$ is the number you calculated from part a. for the mean. 
+  
+
+b. Make side-by-side plots showing how well each model fits. Each plot must have the histogram of the data with the probabilities according to the model overlaid on it. Which model appears to fit the data better? (Be sure to echo your code. Don't forget labels, titles etc. )
+
+   \emph{Hint: For help with the code for side-by-side plots, look at Section 8.1 on the negative binomial. For help on overlaying theoretical probabilities on a histogram, look at  section 8.2 on the Poisson distribution.}
+
+```{r}
+
+Model_fits <- tibble(
+  x = 0:7,
+  f1 = dgeom(x, prob = 1/(1+1.15) ),
+  f2 =dpois(0:7, lambda = 1.15)
+)
+
+p1 <- ggplot()+
+  geom_histogram(data = apple_trees,
+                 mapping = aes(x = mites, y = ..density..),
+                 binwidth = 1,
+                 alpha=0.5,
+                 color = "black") +
+  geom_segment( data = Model_fits,
+                mapping = aes(x = x, xend = x, 
+                              y = 0, yend =f1),
+                color = "red") +
+  labs(title = expression(X %~% Geom(pi == 1/(1+1.15)))) +
+  scale_x_continuous(breaks = 0:7)
+
+p2 <- ggplot()+
+  geom_histogram(data = apple_trees,
+                 mapping = aes(x = mites, y = ..density..),
+                 binwidth = 1,
+                 alpha=0.5,
+                 color = "black") +
+  geom_segment( data = Model_fits,
+                mapping = aes(x = x, xend = x, 
+                              y = 0, yend =f2),
+                color = "red") +
+  labs(title = expression(X %~% Pois(lambda == 1.15))) + 
+  scale_x_continuous(breaks = 0:7)
+
+p1 + p2
+```
+
+   The predicted probabilities for each model is shown in red as vertical lines on the probability histogram. The geometric provides a much better fit as evidenced by how well the predicted probabilities match with the actual data we observe.
+
+
