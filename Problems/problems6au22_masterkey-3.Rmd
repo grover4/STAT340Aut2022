@@ -1,0 +1,161 @@
+---
+title: "Problem Session 6"
+subtitle:  "Continuous Distributions"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1. The number of eggs laid on a tree leaf by an insect
+of a certain type is a Poisson random variable $X$ with
+parameter $\lambda$. However, such a random variable
+can be \emph{observed} only if $X$ is positive, since if $X$ is
+0 then we cannot know that such an insect was on
+the leaf. Let $Y$ denote the observed number
+of eggs.
+
+a. Write the PMF of $Y$. (Hint: $Y = X | X > 0$ )
+
+First we know that $P(X=x) = \frac{exp(-\lambda)\lambda^x}{x!}$ for x=0,1,... 
+
+We know that Y=X, when X>0. So Y=1,2,3...
+
+So the PMF of Y will be very similar to PMF of X, however, we must find the constant that will allow the sum of P(Y=y) to add to 1. 
+
+Thus we know that $P(Y=y) = cP(X=y)$ for y=1,2,..
+
+We must have that:
+\begin{align*}
+\sum_{y=1}^{\infty}P(Y=y) &=1 \\
+\sum_{y=1}^{\infty}cP(X=y) &= 1 \\
+c\sum_{y=1}^{\infty}P(X=y) &= 1 \\
+c &= \frac{1}{\sum_{y=1}^{\infty}P(X=y)} \\
+c &= \frac{1}{P(X=1)+P(X=2)+...} \\
+c &= \frac{1}{1-P(X=0)} \\
+c &= \frac{1}{1-\frac{\lambda^0exp(-\lambda)}{0!}} \\
+c &= \frac{1}{1-exp(-\lambda)}
+\end{align*}
+
+Thus we have that $P(Y=y) = \frac{P(X=y)}{1-P(X=0)}$ where $X \sim Pois(\lambda)$ for y=1,2,...
+
+
+b. Find $E\left[Y \right]$
+
+\begin{align*}
+E[Y] &= \\
+&= \sum_{y=1}^{\infty}yP(Y=y) \\
+&= \sum_{y=1}^{\infty}y \frac{P(X=y)}{1-P(X=0)} \\
+&= \frac{1}{1-P(X=0)}\sum_{y=1}^{\infty}yP(X=y) \\
+&= \frac{1}{1-P(X=0)}\sum_{y=1}^{\infty}y\frac{\lambda^yexp(-\lambda)}{y!} \\
+&= \frac{exp(-\lambda)}{1-P(X=0)}\sum_{y=1}^{\infty}\frac{\lambda^y}{(y-1)!} \\
+\end{align*}
+
+Now we must consider the term 
+$$
+\sum_{y=1}^{\infty}\frac{\lambda^y}{(y-1)!} = \lambda + \frac{\lambda^2}{1!} + \frac{\lambda^3}{2!} + \dots
+$$
+Now we can take out the in common $\lambda$:
+
+$$
+\lambda + \frac{\lambda^2}{1!} + \frac{\lambda^3}{2!} + \dots = \lambda(1 + \frac{\lambda}{1}+\frac{\lambda^2}{2!}+\dots) = \lambda e^{\lambda}
+$$
+
+Thus we have that:
+
+$E[Y] =  \frac{e^{-\lambda}}{1-P(X=0)}\lambda e^{\lambda} = \frac{\lambda}{1-P(X=0)}$.
+
+This makes sense since this is simply the mean of a Poisson Random variable weighted by the new normalizing constant $\frac{1}{1-P(X=0)}$.
+
+2. Karen is studying for a history exam, where the teacher is going to choose 5 essay questions randomly from the 10 he has given the class. Due to an upcoming probability exam, she only has limited time to prepare for the history exam. Is it enough to study 8 out of the 10 questions if she wants at least an 85% chance of being familiar with at least four of the five assigned questions?
+
+We have 10 total test questions here. Of these we have two types: those that Karen studies, and those that Karen does not. 
+
+We have 8 white marbles, and 2 black marbles. The instructor will be randomly selecting 5 of these marbles. We want to know that probability that the instructor draws 4 or more white marbles. We will compare this to the desired 85%. 
+
+Define the random variable $X$, where X is the number of questions out of the 5 that are selected, which Karen has studied. Then X will be a Hypergeometric distribution. 
+
+$$
+X \sim Hypergeom(m=8,n=2,k=5)
+$$
+
+$$
+P(X=x) = f(x) = \frac{\binom{m}{x}\binom{n}{k-x}}{\binom{m+n}{k}}
+$$
+
+Where m is the number of questions Karen studied, n is the number of questions not studied , and k is the number of exam questions selected for the exam. 
+
+We wish to find $P(X\geq 4) = P(X=4)+P(x=5)$. We have that as:
+
+```{r}
+dhyper(4,8,2,5) + dhyper(5,8,2,5)
+```
+Thus $P(X\geq 4) < 0.85$. So Karen must study more than 8 questions for at least an 85% chance that 4 of them are on the exam. 
+
+If Karen studies 9 questions, we can repeat this calculation, where m=9 and n=1. 
+
+```{r}
+dhyper(4,9,1,5) + dhyper(5,9,1,5)
+```
+This is obvious since if Karen studies 9 question, she can at most only not know 1 question so she will always have studied at least 4/5. 
+
+3. Suppose $f(x)$ and $g(x)$ are PDFs and $\alpha \in [0,1]$ then show that $[\alpha f(x) + (1-\alpha) g(x) ]$ is also a PDF. 
+
+To show that $h(x) = \alpha f(x) + (1-\alpha) g(x)$ is a pdf we must show that $h(x) \geq 0$ for all x and that $\int_xh(x)dx=1$.
+
+For the first condition, clearly $h(x)\geq0$ since we know $f(x),g(x)\geq0$ and that $\alpha>0, 1-\alpha>0$, so their sum must be positive.
+
+For the second condition::
+
+\begin{align*}
+\int_xh(x)dx &= \int_x (\alpha f(x) + (1-\alpha) g(x))dx \\
+&= \int_x \alpha f(x)dx + \int_x(1-\alpha)g(x)dx \\
+&= \alpha \int_xf(x)dx + (1-\alpha)\int_xg(x)dx \\
+&= \alpha(1) + (1-\alpha)(1) \text{since we know that f(x) and g(x) are pdf's} \\
+&= 1 
+\end{align*}
+
+
+4. If $Y$ is uniformly distributed over $[0,5)$, calculate the probability that the roots of the equation in $x$
+\begin{align*}
+		4x^2 + 4xY + Y + 2 &= 0
+\end{align*} are both real.
+
+   \emph{Hint: The roots of the equation $ax^2+bx+c=0$ are real if the discriminant $b^2-4ac \geq 0$.}
+   
+ We know that the roots of a quadratic equation are real if $b^2-4ac \geq 0$.
+ 
+ We have that $a=4$, $b=4Y$, $c=Y+2$.
+ 
+ Thus the discriminant is: 
+ $(4Y)^2 - 4(4)(Y+2) = 16Y^2 - 16(Y+2) = 16(Y^2-Y-2) = 16(Y-2)(Y+1)$.
+ 
+ Since a=4 is positive we know that this is an upward facing parabola. Thus this discriminant is negative when it is between it's two x-intercepts, it's 2 roots. In this parabola by factoring we see that roots of Y=2, and Y=-1. Thus for Y in (-1,2) the discriminant will be negative.
+ 
+ So we wish to find $P(-1<Y<2)$. Since Y is a uniform random variable we have that this will be:
+ 
+$$
+P(-1<Y<2) = P(0<Y<2) = \int_1^2f(y)dy = \int_1^2\frac{1}{5}dy = \frac{y}{5}|_{y=0}^{y=2} = \frac{2}{5}
+$$
+ 
+ Thus we have that the probability the roots of the equation are real is:
+ 
+$1- P(-1<Y<2) = 1-P(0<Y<2) = 1-2/5 = 3/5$
+ 
+ 
+ 
+ 
+ 
