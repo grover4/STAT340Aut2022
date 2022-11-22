@@ -1,0 +1,172 @@
+---
+title: "Homework 6"
+subtitle: "Autumn 2022"
+author: "KEY"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+* * * 
+
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Nov 16 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+
+1. The number of chocolate chips in a certain type of cookie has a Poisson distribution. We want the probability that a randomly chosen cookie has at least 2 chocolate chips to be greater than 0.99. 
+
+a. Make a line plot of this probability as a function of $\lambda$. 
+Let $X$ denote the number of chocolate chips in a randomly selected cookie. We are given
+$$X \sim Pois(\lambda).$$
+This means
+$$f(x) = \lambda^{x} e^{-\lambda x}/x!, \ \ x = 0,1,2\dots$$
+Therefore
+\begin{align*}
+P(X \geq 2) &= 1 - P(X< 2) = 1 - P(X = 0) - P(X = 1)\\
+&= 1 - e^{-\lambda} - \lambda e^{-\lambda}.
+\end{align*}
+In the following code chunk, we will make a plot of $P(X \geq 2)$ versus $\lambda$.
+
+```{r}
+ggplot() + 
+  geom_function( 
+    fun = function(x) {1 - exp(-x) - x*exp(-x)},
+    xlim=c(0,10)  #by 10 the function is pretty stable
+    )+
+  labs(
+    x = expression(lambda),
+    y = "P(X >=2)",
+    title = "Probability of at least 2 chocolate chips "
+  )
+
+
+```
+
+b. Find the smallest value of the parameter $\lambda$ of this distribution that ensures this probability.
+
+(Modify the \texttt{uniroot} code below. You can pick 0 for a lower bound for the mean and 10 for the upper bound )
+
+
+```{r  message= F, warning = F}
+#The function uniroot searches the interval from lower to upper
+#for a root of the function. Type ?uniroot for more information.
+
+#to find x so that x(x^2-1)+0.5=0 in the range -2, 2
+##use the following code
+
+uniroot(f = function(x){ 1 - exp(-x) - x*exp(-x)} - 0.99, lower=0, upper=10)  
+
+```
+
+The smallest value of $\lambda$ is 6.638. This is the root of the equation
+$$1 - e^{-\lambda} - \lambda e^{-\lambda} = 0.99$$.
+For any $\lambda$ that is larger than 6.638, this probability will be exceeded. 
+
+2. (Symmetry) Suppose that $f(x)$ is the PDF corresponding to a continuous random variable which is symmetrically distributed about 0. That is, for any $a > 0$
+   $$f(a) = f(-a).$$
+	Show that 
+	$$P(-a \leq X \leq a) = 2 F(a) - 1$$ where $F(x)$ is the CDF corresponding to  $f(x)$. 
+
+    \emph{Hint:} 
+     $$P(-a \leq X \leq a) = P(X \leq a) - P(X < -a).$$ 
+     Write
+     $$P(X < -a ) = \int\limits_{-\infty}^{-a} f(x) dx.$$ 
+     Make a change of variable $u = -x$ and proceed from there.
+
+We begin as suggested in the hint:
+\begin{align*}
+P(-a \leq X \leq a) &= P(X \leq a) - P(X < a)\\
+&= F(a) - P(X<a).
+\end{align*}
+We will now show that $P(X < a) = 1 - F(a)$. By definition:
+$$P(X < a) = \int\limits_{-\infty}^{a} f(x)\:dx.$$
+Let's make the change of variable
+$$u = -x \Rightarrow du = -dx$$
+in the integral above.
+This leads to
+\begin{align*}
+P(X < a) 
+&= \int\limits_{\infty}^{-a} f(-u) -du,\\
+&= \int\limits_{a}^{\infty} f(-u) du, \ \ \text{flip limits} \\
+&= \int\limits_{a}^{\infty} f(u) du \ \ \text{f is symmetric}.\\
+&= P(X > a) \\
+&= 1 - P(X \leq a) = 1 - F(a).
+\end{align*}
+  
+4. (Flooding river) A river floods every year. Suppose that the low-water mark is set at 1 and the high-water mark $X$ has CDF
+\begin{align*}
+	F_X(x) &= P(X \leq x) \\
+	       &= \left\{ \begin{array}{cc} 
+		               0 & x < 1 \\
+		               1 - 1/x^2 & 1 \leq x < \infty. \end{array} \right.
+\end{align*}
+
+a.  Find a PDF, $f(x)$ for $X$.
+
+By the fundamental rule of calculus
+$$f(x) = \frac{d}{dx} F(x).$$
+Therefore, for $x > 1$ we have
+\begin{align*}
+f(x) &= \frac{d}{dx} \left(1- \frac{1}{x^2} \right), \\
+&= \frac{d}{dx} -x^{-2},\\
+&= 2 x^{-3}.
+\end{align*}
+Note that it is assumed that for $x \leq 1$, the PDF is 0.
+
+b. If the low-water mark is set to 0 and we use a unit of measurement that is $\frac{1}{10}$ of that given previously, the high-water mark becomes 
+     $$Y=10\:(X-1).$$ 
+
+     
+   Find $P(Y \leq 1)$. 
+   
+\begin{align*}
+P(Y \leq 1) &= P(10\:(X - 1) \leq 1), \\
+&= P(X \leq \frac{1}{10} + 1 ),\\
+&= F(\frac{1}{10} + 1),\\
+&= 1 - 1/(\frac{1}{10} + 1)^2,  \ \ F(x) = 1-1/x^2 \ x \geq 1.\\
+&= `r 1 - 1/(11/10)^2`.
+\end{align*}
+
+4. The following ordered set of 27 P-values (from Kaati et al., Eur. J. Hum Genetics 2007) were the result of testing many independent subgroups of a sample. 
+
+```{r pvalues}
+pvalue_df <- data.frame( 
+  pval = c(0.01, 0.01, 0.02, 0.04, 0.04, 0.05, 0.07, 0.07, 0.10, 0.19, 0.24, 0.27, 0.34,
+0.37, 0.44, 0.50, 0.53, 0.54, 0.55, 0.61, 0.70, 0.77, 0.80, 0.80, 0.82, 0.94, 0.99)
+)
+```
+
+It is hypothesized that the P-values all come from a
+uniform distribution on $[0,1)$. Fit a uniform distribution to these data. How well does it fit (just visually)?
+
+The following code creates the histogram on the density scale with the uniform distribution superimposed. Visually, the uniform is not a good fit.
+
+```{r}
+
+ggplot(data = pvalue_df) +
+  geom_histogram( 
+       mapping = aes(x = pval, y = ..density..),
+       bins = 6, #sturges: num of bins = log2(27) + 1 approx 6 
+       color = "purple",
+       fill = "gold",
+       breaks = seq(0,1,1/6)) +
+  geom_function(fun = dunif,
+                args=list(min = 0, max = 1),
+                xlim=c(0,1) ) +
+  labs(
+    title = "Pvalues with uniform distribution superimposed"
+  )
+```
