@@ -1,0 +1,27 @@
+---
+title: "Problem Session 7"
+subtitle:  "Normal Distribution"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1. Draw the PDF and CDF of the exponential distribution for three different $\lambda$ values. I want you to superimpose the curves on the same plot, have different colors for the curves and a legend that clearly states what $\lambda$ value the curve corresponds to.   (see chapter 13 on the normal distribution)
+
+2. A stick (of length, say, 1) is broken at random. How much longer is the longer piece than the shorter on average? 
+
+3. It is estimated that 80% of all St. Bernard dogs have weights between 134.4 and 185.6 pounds. Assuming that the weight distribution can be described by a normal distribution, and assuming that 134.4 and 185.6 are equally from the mean, determine the standard deviation  of the distribution.
