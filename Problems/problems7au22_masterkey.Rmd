@@ -1,0 +1,134 @@
+---
+title: "Problem Session 7"
+subtitle:  "Normal Distribution"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(patchwork)
+#library(mosaic)
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+1.Draw side-by-side graphs of the PDF and CDF of the exponential distribution for three different $\lambda$ values. I want you to superimpose the curves on the same plot, have different colors for the curves and a legend that clearly states what $\lambda$ value the curve corresponds to.   (Harshil: see chapter 12 on the normal distribution)
+
+```{r}
+x_range <- c(0,7.5)
+cols <- c( "1" = "purple", "2" = "green", "3" = "blue")
+p1<- ggplot()+
+  geom_function(fun=dexp,
+                args = list(rate=1),
+                mapping = aes(color='1'),
+                xlim = x_range
+                )+
+  geom_function(fun=dexp,
+                args = list(rate=2),
+                mapping = aes(color='2'),
+                xlim = x_range
+                )+
+  geom_function(fun=dexp,
+                args = list(rate=3),
+                mapping = aes(color='3'),
+                xlim = x_range
+                )+
+  scale_color_manual(
+    values = cols
+  )+
+  labs(title = "Three Exponential PDF's",
+       x = "x",
+       y = "f(x)",
+       color = expression(lambda)
+       )
+  
+p2<- ggplot() + 
+  geom_function(fun=pexp,
+                args = list(rate=1),
+                mapping = aes(color='1'),
+                xlim =x_range
+                )+
+  geom_function(fun=pexp,
+                args = list(rate=2),
+                mapping = aes(color='2'),
+                xlim = x_range
+                )+
+  geom_function(fun=pexp,
+                args = list(rate=3),
+                mapping = aes(color='3'),
+                xlim = x_range
+                )+
+  labs(title = "Three Exponential CDF's",
+       x = "x",
+       y = "F(x)",
+       color = expression(lambda)
+       )+
+  scale_color_manual( 
+    values = cols
+    )
+
+p1+p2  
+```
+
+
+2. A stick (of length, say, 1) is broken at random. How much longer is the longer piece than the shorter on average? 
+
+   Let $X$ denote the place where the stick breaks. Note, $0 < X < 1$, and we have 2 sticks of length $X$ and $(1-X)$. 
+   Let $Y$ denote the difference in lengths (longer minus shorter). We want to calculate $E\left[Y \right]$. 
+   
+   Let's first write $Y$ as a function of $X$. To do this, note that when the longer piece is $X$ then $$Y = X - (1 - X) = 2 X -1.$$ 
+   
+   However, when the longer piece is $1-X$ then $$Y = (1- X) - X = 1 - 2X = - (2X - 1).$$
+   
+   Therefore 
+   $$Y = |2X -1|.$$
+   
+We wish to find $E(Y)$.
+
+By the rule of the unconscious probabilist we thus have:
+
+\begin{align*}
+E(Y) &= \int |2x - 1| \cdot f(x) dx = \int\limits_{0}^{1} |2x - 1| dx \\
+&= \int_{0}^{1/2} (1-2x) dx + \int_{1/2}^{1} (2x-1) dx, \\
+&= \left. x - x^2 \right|_{0}^{1/2} + 
+    \left. x^2 - x \right|_{1/2}^{1}, \\
+&= \frac{1}{2} - \frac{1}{4} - \frac{1}{4} + \frac{1}{2}\\
+&= \frac{1}{2}.
+\end{align*}
+
+
+Thus on average, the longer piece will be larger than the shorter piece by 1/2.  
+
+
+3. It is estimated that 80% of all St. Bernard dogs have weights between 134.4 and 185.6 pounds. Assuming that the weight distribution can be described by a normal distribution, and assuming that 134.4 and 185.6 are equally distant from the mean, determine the standard deviation  of the distribution.
+
+Let X be the random variable that denotes the weight of a randomly selected St. Bernard. We assume
+$$X \sim Norm(\mu, \sigma).$$
+
+Since 134.4 and 185.6 are equally distant from the mean $\mu$, we have that $\mu$ =  `r (134.4+185.6)/2`.
+
+We are also told that 80% of values lie between these two numbers. In other words:
+\begin{align*}
+P(134.4 \leq X \leq 185.6) &= 0.8\\
+P\left(\frac{134.4 - 160}{\sigma} \leq \frac{X - 160}{\sigma} \leq \frac{185.6 - 160}{\sigma} \right) &= 0.8,\\
+P\left(\frac{-25.6}{\sigma} \leq Z \leq \frac{25.6}{\sigma} \right) &= 0.8.  \ \ \ \ \ Z = \frac{X-\mu}{\sigma} \sim Norm(0,1),\\
+2 P\left(Z \leq \frac{25.6}{\sigma}\right) - 1 &= 0.8, \ \ \ \ \ \ \text{Problem 2 HW 6}\\
+P\left(Z \leq \frac{25.6}{\sigma} \right) &= 0.9
+\end{align*}
+
+Hence $\frac{25.6}{\sigma}$ is the 90th percentile of a standard normal distribution. The 90th percentile of a standard normal distribution is 
+```{r echo =T}
+qnorm(p=0.9)
+```
+
+and therefore $\sigma = 25.6/`r qnorm(p=0.9)` = `r 25.6/qnorm(p=0.9)`$ 
