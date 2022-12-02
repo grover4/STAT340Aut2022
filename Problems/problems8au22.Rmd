@@ -1,0 +1,37 @@
+---
+title: "Problem Session 8"
+subtitle:  "Normal Distribution"
+graphics: yes
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+* * * 
+### Instructions
+
+Please answer the following questions in the order in which they are posed. Add a few empty lines below each and write your answers there. Focus on answering in complete sentences. You will also need scratch paper/pen to work out the answers before typing it.
+
+For help with formatting documents in RMarkdown, please consult [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/). Another option is to search using Google. 
+
+* * *
+
+### Exercises 
+
+
+Pruim problem 3.45 on page 220. The `fastR2` data set `Jordan8687` contains basketball legend Michael Jordan's point totals for every game of his 1986-1987 season. Is a normal distribution a good model for his point production that year?
+
+   Write code to create the following plots. Then answer the question.  (Tip: to load the data into your interactive Environment, type `data(jordan8687)`. Note the lowercase "j". )
+
+   a. Make a histogram of the data on the density scale and overlay a normal distribution on it. Use the sample mean and standard deviation of the variable `points` for the mean and standard deviation of the normal distribution model. Be sure to be thoughtful about the choice of binwidth as well. 
+
+   b. Make a normal probability plot to assess whether the normality assumption is reasonable.
+   
+   
+2. Pruim 3.46 on page 220. The `Pheno` dataset contains phenotype information for 2,457 subjects from the Finland-United States investigation of NIDDM (FUSION) Genetics of type 2 diabetes. Among the physical measurements recorded is the height (cm) of the subject.
+
+a. Make a normal probability plot of the heights of all the subjects in the dataset. Does the height appear to be normally distributed?
+
+b. Now many normal probability plots by `sex`. Do the heights of men and women appear to be normally distributed? (Hint: check out `facet_wrap` from section 13.2 of the notes for making plots by `sex`. Or check out the `group` argument for `stat_qq`.)
